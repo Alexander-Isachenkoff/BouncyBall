@@ -60,7 +60,7 @@ public class Level extends Pane {
     }
 
     public void start() {
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             lastUpdate = System.currentTimeMillis();
 
             while (true) {
@@ -77,7 +77,9 @@ public class Level extends Pane {
                 }
             }
 
-        }).start();
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     private void generateStars() {
