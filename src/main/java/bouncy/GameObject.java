@@ -1,55 +1,77 @@
 package bouncy;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import lombok.Getter;
 
-import java.io.IOException;
+public abstract class GameObject {
 
-@Getter
-public abstract class GameObject<T extends Node> {
+    @Getter
+    private final Rectangle rect;
 
-    private final T node;
-
-    public GameObject(String fxml) throws IOException {
-        this.node = new FXMLLoader().load(Main.class.getResourceAsStream(fxml));
+    protected GameObject(String imageFileName) {
+        this(imageFileName, 30, 30);
     }
 
-    public GameObject(T node) {
-        this.node = node;
+    protected GameObject(String imageFileName, int width, int height) {
+        rect = new Rectangle(width, height);
+        Image image = new Image(Main.class.getResourceAsStream(imageFileName));
+        setImage(image);
+    }
+
+    private void setImage(Image image) {
+        rect.setFill(new ImagePattern(image));
     }
 
     public void addX(double x) {
-        setX(node.getLayoutX() + x);
+        setX(rect.getX() + x);
     }
 
     public void addY(double y) {
-        setY(node.getLayoutY() + y);
+        setY(rect.getY() + y);
     }
 
     public double getX() {
-        return node.getLayoutX();
+        return rect.getX();
     }
 
     public void setX(double x) {
-        node.setLayoutX(x);
+        rect.setX(x);
     }
 
     public double getY() {
-        return node.getLayoutY();
+        return rect.getY();
     }
 
     public void setY(double y) {
-        node.setLayoutY(y);
+        rect.setY(y);
     }
 
     public void setPosition(double x, double y) {
-        node.setLayoutX(x);
-        node.setLayoutY(y);
+        rect.setX(x);
+        rect.setY(y);
     }
 
-    public abstract int getWidth();
+    public double getWidth() {
+        return rect.getWidth();
+    }
 
-    public abstract int getHeight();
+    public double getHeight() {
+        return rect.getHeight();
+    }
+
+    public double getRightX() {
+        return getX() + getWidth();
+    }
+
+    public double getBottomY() {
+        return getY() + getHeight();
+    }
+
+    public boolean intersects(GameObject object) {
+        return object.getX() < getRightX() && object.getX() + object.getWidth() > getX() &&
+                object.getY() < getBottomY() && object.getY() + object.getHeight() > getY();
+    }
 
 }

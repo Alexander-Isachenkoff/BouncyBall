@@ -1,23 +1,9 @@
 package bouncy;
 
-import javafx.scene.shape.Rectangle;
+public class Block extends GameObject {
 
-import java.io.IOException;
-
-public class Block extends GameObject<Rectangle> {
-
-    public Block() throws IOException {
-        super("block.fxml");
-    }
-
-    @Override
-    public int getWidth() {
-        return 30;
-    }
-
-    @Override
-    public int getHeight() {
-        return 30;
+    public Block() {
+        super("images/grass.png");
     }
 
 }
