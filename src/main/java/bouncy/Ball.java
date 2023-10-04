@@ -11,7 +11,7 @@ public class Ball extends GameObject {
     private double vSpeed = 0;
 
     public Ball() {
-        super("images/hud_p1.png", 16, 16);
+        super("images/player.png", 16, 16);
     }
 
 }
