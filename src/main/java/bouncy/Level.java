@@ -1,26 +1,32 @@
 package bouncy;
 
+import bouncy.model.GameObject;
+import bouncy.model.LevelData;
+import bouncy.model.Player;
+import bouncy.model.Star;
+import bouncy.view.GameObjectNode;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TimerTask;
 
 public class Level extends Pane {
 
-    private final List<GameObject> gameObjects = new ArrayList<>();
     private final Set<KeyCode> keysPressed = new HashSet<>();
-    private final Label scoreLabel;
+    private final Label scoreLabel = new Label();
+    private final Label fpsLabel = new Label();
+    private final LevelData levelData = new LevelData();
     private long lastUpdate;
-    private long dtMills;
-    private double dtSecs;
+    private double dtSeconds;
     private int score = 0;
 
     public Level() {
-        scoreLabel = new Label();
-        getChildren().add(scoreLabel);
+        getChildren().add(new HBox(5, scoreLabel, fpsLabel));
         setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
@@ -29,122 +35,72 @@ public class Level extends Pane {
         });
     }
 
-    public void add(GameObject object) {
-        gameObjects.add(object);
-        Platform.runLater(() -> getChildren().add(object.getRect()));
+    public LevelData getLevelData() {
+        return levelData;
     }
 
-    public void remove(GameObject object) {
-        gameObjects.remove(object);
-        Platform.runLater(() -> getChildren().remove(object.getRect()));
+    public GameObjectNode add(GameObject gameObject) {
+        if (gameObject instanceof Player) {
+            ((Player) gameObject).setLevelData(levelData);
+        }
+        levelData.add(gameObject);
+        GameObjectNode gameObjectNode = new GameObjectNode(gameObject);
+        Platform.runLater(() -> getChildren().add(gameObjectNode));
+        return gameObjectNode;
     }
 
-    private <T extends GameObject> List<T> getObjects(Class<T> tClass) {
-        return gameObjects.stream()
-                .filter(gameObject -> gameObject.getClass() == tClass)
-                .map(gameObject -> (T) gameObject)
-                .collect(Collectors.toList());
-    }
-
-    private <T extends GameObject> T getObject(Class<T> tClass) {
-        return gameObjects.stream()
-                .filter(gameObject -> gameObject.getClass() == tClass)
-                .map(gameObject -> (T) gameObject)
+    public void remove(GameObject gameObject) {
+        levelData.remove(gameObject);
+        getChildren().stream()
+                .filter(node -> node instanceof GameObjectNode)
+                .map(node -> (GameObjectNode) node)
+                .filter(node -> node.getGameObject() == gameObject)
                 .findFirst()
-                .get();
-    }
-
-    private Ball getBall() {
-        return getObject(Ball.class);
+                .ifPresent(node -> {
+                    Platform.runLater(() -> getChildren().remove(node));
+                });
     }
 
     public void start() {
-        Thread thread = new Thread(() -> {
-            lastUpdate = System.currentTimeMillis();
+        requestFocus();
+        lastUpdate = System.currentTimeMillis();
 
-            while (true) {
-                requestFocus();
-                dtMills = System.currentTimeMillis() - lastUpdate;
-                dtSecs = dtMills / 1000.0;
-                lastUpdate = System.currentTimeMillis();
-                processBall();
-                generateStars();
-                try {
-                    Thread.sleep(Math.round(1000 / 60f));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        int delay = Math.round(1000 / 120f);
+
+        new java.util.Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                update();
             }
-
-        });
-        thread.setDaemon(true);
-        thread.start();
+        }, 0, delay);
     }
 
-    private void generateStars() {
-        if (System.currentTimeMillis() % 50 == 0) {
-            Random random = new Random();
-            List<Block> blocks = getObjects(Block.class);
-            Block block = blocks.get(random.nextInt(blocks.size()));
-            Star star = new Star();
-            star.setPosition(block.getX(), block.getY() - star.getHeight());
-            add(star);
-        }
+    private void update() {
+        requestFocus();
+        long dtMills = System.currentTimeMillis() - lastUpdate;
+        dtSeconds = dtMills / 1000.0;
+        Platform.runLater(() -> fpsLabel.setText("FPS: " + Math.round(1 / dtSeconds)));
+        lastUpdate = System.currentTimeMillis();
+        processBall();
     }
-
 
     private void processBall() {
-        Ball ball = getBall();
-        List<Block> blocks = getObjects(Block.class);
+        Player player = levelData.getPlayer();
 
-        //blocks.forEach(block -> block.getRect().setFill(Color.LIGHTGRAY));
-
-        List<Block> bottomBlocks = blocks.stream()
-                .filter(block -> block.getX() <= ball.getRightX() && block.getX() + block.getWidth() >= ball.getX())
-                .filter(block -> block.getY() <= ball.getBottomY() && block.getBottomY() > ball.getY())
-                .peek(block -> {
-                    //block.getRect().setFill(Color.RED);
-                })
-                .collect(Collectors.toList());
-
-        if (!bottomBlocks.isEmpty() && ball.getVSpeed() >= 0) {
-            ball.setVSpeed(-300);
-        }
-
-        ball.setVSpeed(ball.getVSpeed() + 10);
-
-        ball.addY(ball.getVSpeed() * dtSecs);
+        player.move(dtSeconds);
 
         if (keysPressed.contains(KeyCode.LEFT)) {
-            List<Block> leftBlocks = blocks.stream()
-                    .filter(block -> block.getY() < ball.getY() && block.getY() + block.getWidth() > ball.getY())
-                    .filter(block -> block.getRightX() >= ball.getX() && block.getX() < ball.getX())
-                    .peek(block -> {
-                        //block.getRect().setFill(Color.BLUE);
-                    })
-                    .collect(Collectors.toList());
-            if (leftBlocks.isEmpty()) {
-                ball.addX(-ball.getSideSpeed() * dtSecs);
-            }
+            player.moveLeft(dtSeconds);
         }
 
         if (keysPressed.contains(KeyCode.RIGHT)) {
-            List<Block> rightBlocks = blocks.stream()
-                    .filter(block -> block.getY() < ball.getY() && block.getY() + block.getWidth() > ball.getY())
-                    .filter(block -> block.getX() <= ball.getRightX() && block.getRightX() > ball.getX())
-                    .peek(block -> {
-                        //block.getRect().setFill(Color.BLUE);
-                    })
-                    .collect(Collectors.toList());
-            if (rightBlocks.isEmpty()) {
-                ball.addX(ball.getSideSpeed() * dtSecs);
-            }
+            player.moveRight(dtSeconds);
         }
 
-        getObjects(Star.class).stream()
-                .filter(ball::intersects)
-                .forEach(object -> {
-                    remove(object);
+        levelData.getObjects(Star.class).stream()
+                .filter(player::intersects)
+                .forEach(star -> {
+                    remove(star);
                     score++;
                 });
 

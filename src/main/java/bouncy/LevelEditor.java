@@ -1,6 +1,9 @@
 package bouncy;
 
+import bouncy.model.*;
+import bouncy.view.GameObjectNode;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
@@ -9,30 +12,35 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LevelEditor {
 
-    public static final int GRID_SIZE = 30;
+    public static final int GRID_SIZE = 40;
+    private final Rectangle selector = new Rectangle();
     public ListView<GameObject> itemsListView;
     public Pane levelPane;
-
-    private Rectangle selector = new Rectangle();
-    private Map<Rectangle, GameObject> levelData = new HashMap<>();
+    private Level level;
 
     @FXML
     private void initialize() {
+        level = new Level();
+        level.getLevelData().setName("Level 1");
+        levelPane.getChildren().add(level);
+
+        LevelData levelData = LevelData.load("Level 1.xml");
+        for (GameObject gameObject : levelData.getGameObjects()) {
+            addGameObject(gameObject);
+        }
+
         itemsListView.getItems().add(new Block());
         itemsListView.getItems().add(new Star());
-        itemsListView.getItems().add(new Ball());
+        itemsListView.getItems().add(new Player());
 
         itemsListView.setCellFactory(param -> new ListCell<GameObject>() {
             @Override
             protected void updateItem(GameObject item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item != null) {
-                    setGraphic(item.getRect());
+                    setGraphic(new GameObjectNode(item));
                 } else {
                     setGraphic(null);
                 }
@@ -47,7 +55,7 @@ public class LevelEditor {
             line.setStartY(y);
             line.setEndY(y);
             line.setEndX(3000);
-            levelPane.getChildren().add(line);
+            level.getChildren().add(line);
         }
 
         for (int i = 1; i <= 100; i++) {
@@ -58,18 +66,18 @@ public class LevelEditor {
             line.setStartX(y);
             line.setEndX(y);
             line.setEndY(3000);
-            levelPane.getChildren().add(line);
+            level.getChildren().add(line);
         }
 
-        levelPane.getChildren().add(selector);
-        levelPane.setOnMouseMoved(event -> {
+        level.getChildren().add(selector);
+        level.setOnMouseMoved(event -> {
             double x = Math.floor(event.getX() / GRID_SIZE) * GRID_SIZE;
             double y = Math.floor(event.getY() / GRID_SIZE) * GRID_SIZE;
             selector.setWidth(GRID_SIZE);
             selector.setHeight(GRID_SIZE);
             GameObject selectedItem = itemsListView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                selector.setFill(selectedItem.getRect().getFill());
+                selector.setFill(new GameObjectNode(selectedItem).getFill());
                 selector.setOpacity(0.5);
             } else {
                 selector.setFill(Color.LIGHTSKYBLUE);
@@ -78,7 +86,7 @@ public class LevelEditor {
             selector.setY(y);
         });
 
-        levelPane.setOnMouseClicked(event -> {
+        level.setOnMouseClicked(event -> {
             if (event.getButton() != MouseButton.PRIMARY) {
                 return;
             }
@@ -87,29 +95,44 @@ public class LevelEditor {
             int yIndex = (int) Math.floor(event.getY() / GRID_SIZE);
             double x = xIndex * GRID_SIZE;
             double y = yIndex * GRID_SIZE;
-            GameObject selectedItem = itemsListView.getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                Rectangle rect = new Rectangle(GRID_SIZE, GRID_SIZE, selectedItem.getRect().getFill());
-                rect.setX(x);
-                rect.setY(y);
-                levelPane.getChildren().add(rect);
-
-                rect.setOnMouseClicked(event1 -> {
-                    if (event1.getButton() == MouseButton.SECONDARY) {
-                        levelData.remove(rect);
-                        levelPane.getChildren().remove(rect);
-                    }
-                });
-
+            GameObject selectedGameObject = itemsListView.getSelectionModel().getSelectedItem();
+            if (selectedGameObject != null) {
                 GameObject gameObject;
                 try {
-                    gameObject = selectedItem.getClass().newInstance();
+                    gameObject = selectedGameObject.getClass().newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-                levelData.put(rect, gameObject);
+                gameObject.setX(x);
+                gameObject.setY(y);
+                addGameObject(gameObject);
             }
         });
+    }
+
+    private void addGameObject(GameObject gameObject) {
+        GameObjectNode gameObjectNode = level.add(gameObject);
+        gameObjectNode.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                level.remove(gameObject);
+            }
+        });
+    }
+
+    @FXML
+    private void onSave() {
+        level.getLevelData().save();
+    }
+
+    @FXML
+    private void onStart() {
+        Level level1 = new Level();
+        for (GameObject gameObject : level.getLevelData().getGameObjects()) {
+            level1.add(gameObject);
+        }
+        Scene scene = levelPane.getScene();
+        scene.setRoot(level1);
+        level1.start();
     }
 
 }
