@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Level extends Pane {
@@ -67,7 +68,7 @@ public class Level extends Pane {
 
         int delay = Math.round(1000 / 120f);
 
-        new java.util.Timer().schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 update();

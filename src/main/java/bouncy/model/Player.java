@@ -23,7 +23,11 @@ public class Player extends MovingGameObject {
     private LevelData levelData;
 
     public Player() {
-        super("images/player.png", 16, 16);
+        this(16, 16);
+    }
+
+    public Player(int width, int height) {
+        super("images/other", "player.png", width, height);
     }
 
     @Override

@@ -31,7 +31,9 @@ public abstract class GameObject {
     @XmlAttribute
     private double colliderHeight;
     @XmlAttribute
-    private String imagePath;
+    private String imagePack;
+    @XmlAttribute
+    private String imageName;
 
     @XmlTransient
     private Consumer<Double> onXChanged = d -> {
@@ -46,14 +48,16 @@ public abstract class GameObject {
     private Consumer<Double> onHeightChanged = d -> {
     };
 
-    protected GameObject(String imagePath) {
-        this(imagePath, 30, 30);
+    protected GameObject(String imagePack, String imageName) {
+        setImagePack(imagePack);
+        setImageName(imageName);
     }
 
-    protected GameObject(String imagePath, int width, int height) {
+    protected GameObject(String imagePack, String imageName, int width, int height) {
         setWidth(width);
         setHeight(height);
-        setImagePath(imagePath);
+        setImagePack(imagePack);
+        setImageName(imageName);
     }
 
     public void addX(double x) {

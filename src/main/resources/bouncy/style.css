@@ -1,0 +1,29 @@
+.gameObjectToggleButton {
+    -fx-padding: 5;
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-color: lightgray;
+    -fx-border-radius: 5;
+    -fx-cursor: HAND;
+}
+
+.gameObjectToggleButton:hover {
+    -fx-background-color: lightgray;
+}
+
+.gameObjectToggleButton:selected {
+    -fx-background-color: lightskyblue;
+}
+
+.gameObjectToggleButton:focused {
+    -fx-focus-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.gameObjectsFlowPane {
+    -fx-padding: 5;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}

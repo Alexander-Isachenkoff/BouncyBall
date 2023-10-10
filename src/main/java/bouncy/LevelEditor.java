@@ -1,23 +1,34 @@
 package bouncy;
 
 import bouncy.model.*;
+import bouncy.ui.GameObjectToggleButton;
 import bouncy.view.GameObjectNode;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 public class LevelEditor {
 
-    public static final int GRID_SIZE = 40;
+    public static final int GRID_SIZE = 30;
     private final Rectangle selector = new Rectangle();
-    public ListView<GameObject> itemsListView;
+    private final ToggleGroup toggleGroup = new ToggleGroup();
     public Pane levelPane;
+    public Tab tilesTab;
+    public Accordion tilesAccordion;
+    public FlowPane otherPane;
     private Level level;
 
     @FXML
@@ -31,22 +42,101 @@ public class LevelEditor {
             addGameObject(gameObject);
         }
 
-        itemsListView.getItems().add(new Block());
-        itemsListView.getItems().add(new Star());
-        itemsListView.getItems().add(new Player());
+        initGameObjectsList();
 
-        itemsListView.setCellFactory(param -> new ListCell<GameObject>() {
-            @Override
-            protected void updateItem(GameObject item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item != null) {
-                    setGraphic(new GameObjectNode(item));
-                } else {
-                    setGraphic(null);
+        drawGrid();
+
+        level.getChildren().add(selector);
+        level.setOnMouseMoved(event -> {
+            double x = Math.floor(event.getX() / GRID_SIZE) * GRID_SIZE;
+            double y = Math.floor(event.getY() / GRID_SIZE) * GRID_SIZE;
+            selector.setWidth(GRID_SIZE);
+            selector.setHeight(GRID_SIZE);
+            GameObject selectedItem = getSelectedGameObject();
+            if (selectedItem != null) {
+                selector.setFill(new GameObjectNode(selectedItem).getFill());
+                selector.setOpacity(0.5);
+            } else {
+                selector.setFill(Color.LIGHTSKYBLUE);
+            }
+            selector.setX(x);
+            selector.setY(y);
+        });
+
+        level.setOnMouseClicked(event -> {
+            if (event.getButton() != MouseButton.PRIMARY) {
+                return;
+            }
+
+            int xIndex = (int) Math.floor(event.getX() / GRID_SIZE);
+            int yIndex = (int) Math.floor(event.getY() / GRID_SIZE);
+            double x = xIndex * GRID_SIZE;
+            double y = yIndex * GRID_SIZE;
+            GameObject selectedItem = getSelectedGameObject();
+            if (selectedItem != null) {
+                GameObject gameObject;
+                try {
+                    gameObject = selectedItem.getClass().newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
+                gameObject.setX(x);
+                gameObject.setY(y);
+                gameObject.setWidth(GRID_SIZE);
+                gameObject.setHeight(GRID_SIZE);
+                gameObject.setImagePack(selectedItem.getImagePack());
+                gameObject.setImageName(selectedItem.getImageName());
+                addGameObject(gameObject);
             }
         });
 
+        addGameObjectToList(otherPane, new Player(GRID_SIZE, GRID_SIZE));
+        addGameObjectToList(otherPane, new Star(GRID_SIZE, GRID_SIZE));
+    }
+
+    private void addGameObjectToList(Pane pane, GameObject gameObject) {
+        ToggleButton toggleButton = new GameObjectToggleButton(gameObject);
+        toggleButton.setToggleGroup(toggleGroup);
+        pane.getChildren().add(toggleButton);
+    }
+
+    private GameObject getSelectedGameObject() {
+        GameObject selectedItem = null;
+        GameObjectToggleButton selectedToggle = (GameObjectToggleButton) toggleGroup.getSelectedToggle();
+        if (selectedToggle != null) {
+            selectedItem = selectedToggle.getGameObject();
+        }
+        return selectedItem;
+    }
+
+    private void initGameObjectsList() {
+        List<BlockFamily> blockFamilies = loadBlockFamilies();
+        for (BlockFamily blockFamily : blockFamilies) {
+            TitledPane titledPane = new TitledPane();
+            titledPane.setText(blockFamily.getName());
+            FlowPane flowPane = new FlowPane();
+            flowPane.setHgap(5);
+            flowPane.setVgap(5);
+            flowPane.setPadding(new Insets(5));
+            titledPane.setContent(flowPane);
+
+            for (String imageName : blockFamily.getImageNames()) {
+                Block gameObject = new Block(blockFamily.getImagesPack(), imageName, 35, 35);
+                addGameObjectToList(flowPane, gameObject);
+            }
+            tilesAccordion.getPanes().add(titledPane);
+        }
+    }
+
+    private List<BlockFamily> loadBlockFamilies() {
+        String tilesDir = "images/blocks";
+        File blocksDir = new File(tilesDir);
+        return Arrays.stream(Optional.ofNullable(blocksDir.listFiles()).orElse(new File[0]))
+                .map(file -> new BlockFamily(file.getName(), file.getPath()))
+                .collect(Collectors.toList());
+    }
+
+    private void drawGrid() {
         for (int i = 1; i <= 100; i++) {
             Line line = new Line();
             int y = GRID_SIZE * i;
@@ -68,46 +158,6 @@ public class LevelEditor {
             line.setEndY(3000);
             level.getChildren().add(line);
         }
-
-        level.getChildren().add(selector);
-        level.setOnMouseMoved(event -> {
-            double x = Math.floor(event.getX() / GRID_SIZE) * GRID_SIZE;
-            double y = Math.floor(event.getY() / GRID_SIZE) * GRID_SIZE;
-            selector.setWidth(GRID_SIZE);
-            selector.setHeight(GRID_SIZE);
-            GameObject selectedItem = itemsListView.getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                selector.setFill(new GameObjectNode(selectedItem).getFill());
-                selector.setOpacity(0.5);
-            } else {
-                selector.setFill(Color.LIGHTSKYBLUE);
-            }
-            selector.setX(x);
-            selector.setY(y);
-        });
-
-        level.setOnMouseClicked(event -> {
-            if (event.getButton() != MouseButton.PRIMARY) {
-                return;
-            }
-
-            int xIndex = (int) Math.floor(event.getX() / GRID_SIZE);
-            int yIndex = (int) Math.floor(event.getY() / GRID_SIZE);
-            double x = xIndex * GRID_SIZE;
-            double y = yIndex * GRID_SIZE;
-            GameObject selectedGameObject = itemsListView.getSelectionModel().getSelectedItem();
-            if (selectedGameObject != null) {
-                GameObject gameObject;
-                try {
-                    gameObject = selectedGameObject.getClass().newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-                gameObject.setX(x);
-                gameObject.setY(y);
-                addGameObject(gameObject);
-            }
-        });
     }
 
     private void addGameObject(GameObject gameObject) {

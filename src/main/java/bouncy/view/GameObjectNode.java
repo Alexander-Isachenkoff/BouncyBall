@@ -1,7 +1,7 @@
 package bouncy.view;
 
 
-import bouncy.Main;
+import bouncy.ImageManager;
 import bouncy.model.GameObject;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -20,7 +20,7 @@ public class GameObjectNode extends Rectangle {
         setWidth(gameObject.getWidth());
         setHeight(gameObject.getWidth());
 
-        Image image = new Image(Main.class.getResourceAsStream(gameObject.getImagePath()));
+        Image image = ImageManager.getImage(gameObject.getImagePack(), gameObject.getImageName());
         setFill(new ImagePattern(image));
 
         gameObject.setOnXChanged(this::setX);
