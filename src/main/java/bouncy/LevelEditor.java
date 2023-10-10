@@ -3,8 +3,8 @@ package bouncy;
 import bouncy.model.*;
 import bouncy.ui.GameObjectToggleButton;
 import bouncy.view.GameObjectNode;
+import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
@@ -101,23 +101,21 @@ public class LevelEditor {
     }
 
     private GameObject getSelectedGameObject() {
-        GameObject selectedItem = null;
         GameObjectToggleButton selectedToggle = (GameObjectToggleButton) toggleGroup.getSelectedToggle();
         if (selectedToggle != null) {
-            selectedItem = selectedToggle.getGameObject();
+            return selectedToggle.getGameObject();
+        } else {
+            return null;
         }
-        return selectedItem;
     }
 
     private void initGameObjectsList() {
         List<BlockFamily> blockFamilies = loadBlockFamilies();
         for (BlockFamily blockFamily : blockFamilies) {
             TitledPane titledPane = new TitledPane();
-            titledPane.setText(blockFamily.getName());
+            titledPane.setText(StringUtils.capitalize(blockFamily.getName()));
             FlowPane flowPane = new FlowPane();
-            flowPane.setHgap(5);
-            flowPane.setVgap(5);
-            flowPane.setPadding(new Insets(5));
+            flowPane.getStyleClass().add("gameObjectsFlowPane");
             titledPane.setContent(flowPane);
 
             for (String imageName : blockFamily.getImageNames()) {
