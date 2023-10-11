@@ -21,16 +21,16 @@
         </imageData>
 
         <imageData imagePath="images/spikes/spikesBottom.png">
-            <collider x="0" y="0.5" width="1" height="0.5"/>
+            <collider x="0.075" y="0.6" width="0.85" height="0.4"/>
         </imageData>
         <imageData imagePath="images/spikes/spikesTop.png">
-            <collider x="0" y="0" width="1" height="0.5"/>
+            <collider x="0.075" y="0" width="0.85" height="0.4"/>
         </imageData>
         <imageData imagePath="images/spikes/spikesLeft.png">
-            <collider x="0" y="0" width="0.5" height="1"/>
+            <collider x="0" y="0.075" width="0.4" height="0.85"/>
         </imageData>
         <imageData imagePath="images/spikes/spikesRight.png">
-            <collider x="0.5" y="0" width="0.5" height="1"/>
+            <collider x="0.6" y="0.075" width="0.4" height="0.85"/>
         </imageData>
 
     </data>
