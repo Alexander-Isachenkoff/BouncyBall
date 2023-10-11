@@ -6,8 +6,6 @@
     -fx-border-color: lightgray;
     -fx-border-radius: 5;
     -fx-cursor: HAND;
-    //-fx-pref-width: 45;
-    //-fx-pref-height: 45;
 }
 
 .gameObjectToggleButton:hover {
@@ -28,4 +26,44 @@
     -fx-padding: 5;
     -fx-hgap: 5;
     -fx-vgap: 5;
+}
+
+.title {
+    -fx-background-color: lightskyblue;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-pref-height: 30;
+}
+
+.titled-pane:collapsed .title {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
+.title:hover, .button:hover {
+    -fx-background-color: deepskyblue;
+}
+
+.title .text, .button .text {
+    -fx-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-cursor: HAND;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.title .arrow {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.button {
+    -fx-background-color: lightskyblue;
+    -fx-cursor: HAND;
+    -fx-background-radius: 15;
+}
+
+.button:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
 }

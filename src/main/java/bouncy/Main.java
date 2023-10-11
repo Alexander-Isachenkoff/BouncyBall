@@ -16,8 +16,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent parent = new FXMLLoader(Main.class.getResource("fxml/level_editor.fxml")).load();
         stage.setScene(new Scene(parent));
-        stage.setWidth(960);
-        stage.setHeight(540);
+        stage.setWidth(1024);
+        stage.setHeight(600);
         stage.show();
     }
 
