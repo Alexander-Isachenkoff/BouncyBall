@@ -23,6 +23,8 @@ public abstract class GameObject {
     private double width;
     @XmlAttribute
     private double height;
+    @XmlTransient
+    private double angle;
 
     @XmlTransient
     private ImageData imageData;
@@ -38,6 +40,9 @@ public abstract class GameObject {
     };
     @XmlTransient
     private Consumer<Double> onHeightChanged = d -> {
+    };
+    @XmlTransient
+    private Consumer<Double> onAngleChanged = d -> {
     };
 
     protected GameObject(String imagePath, double width, double height) {
@@ -81,6 +86,15 @@ public abstract class GameObject {
     public void setHeight(double height) {
         this.height = height;
         onHeightChanged.accept(height);
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+        onAngleChanged.accept(angle);
+    }
+
+    public void addAngle(double angle) {
+        setAngle(getAngle() + angle);
     }
 
     public double getColliderAbsoluteX() {

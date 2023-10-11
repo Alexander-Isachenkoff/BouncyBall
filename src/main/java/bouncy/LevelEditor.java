@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class LevelEditor {
 
-    public static final int GRID_SIZE = 30;
+    public static final int GRID_SIZE = 40;
     private final Rectangle selector = new Rectangle();
     private final ToggleGroup toggleGroup = new ToggleGroup();
     public Pane levelPane;
@@ -31,6 +31,7 @@ public class LevelEditor {
     public Accordion tilesAccordion;
     public FlowPane otherPane;
     public FlowPane spikesPane;
+    public FlowPane ballsPane;
     private Level level;
 
     @FXML
@@ -108,7 +109,7 @@ public class LevelEditor {
     }
 
     private void initGameObjectsList() {
-        double size = 35;
+        double size = GRID_SIZE;
         List<BlockFamily> blockFamilies = loadBlockFamilies();
         for (BlockFamily blockFamily : blockFamilies) {
             TitledPane titledPane = new TitledPane();
@@ -124,13 +125,18 @@ public class LevelEditor {
             tilesAccordion.getPanes().add(titledPane);
         }
 
-        String packPath = "images/spikes";
-        List<String> fileNames = FileUtils.getPackFileNames(packPath);
+        String spikesPackPath = "images/spikes";
+        List<String> fileNames = FileUtils.getPackFileNames(spikesPackPath);
         for (String fileName : fileNames) {
-            addGameObjectToList(spikesPane, new Spikes(new File(packPath, fileName).getPath(), size, size));
+            addGameObjectToList(spikesPane, new Spikes(new File(spikesPackPath, fileName).getPath(), size, size));
         }
 
-        addGameObjectToList(otherPane, new Player(size, size));
+        String ballsPackPath = "images/balls";
+        List<String> ballsFileNames = FileUtils.getPackFileNames(ballsPackPath);
+        for (String fileName : ballsFileNames) {
+            addGameObjectToList(ballsPane, new Player(new File(ballsPackPath, fileName).getPath(), size, size));
+        }
+
         addGameObjectToList(otherPane, new Star(size, size));
     }
 

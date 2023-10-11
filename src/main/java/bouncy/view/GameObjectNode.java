@@ -30,7 +30,7 @@ public class GameObjectNode extends Region {
         colliderRectangle.setWidth(gameObject.getColliderWidth());
         colliderRectangle.setHeight(gameObject.getColliderHeight());
         colliderRectangle.setFill(Color.TRANSPARENT);
-        colliderRectangle.setStroke(Color.LAWNGREEN);
+        colliderRectangle.setStroke(Color.RED);
 
         Image image = ImageManager.getImage(gameObject.getImageData().getImagePath());
         objectRectangle.setFill(new ImagePattern(image));
@@ -42,6 +42,7 @@ public class GameObjectNode extends Region {
         gameObject.setOnYChanged(this::setLayoutY);
         gameObject.setOnWidthChanged(objectRectangle::setWidth);
         gameObject.setOnHeightChanged(objectRectangle::setHeight);
+        gameObject.setOnAngleChanged(objectRectangle::setRotate);
     }
 
 }

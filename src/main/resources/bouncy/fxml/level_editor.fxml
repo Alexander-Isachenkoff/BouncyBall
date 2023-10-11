@@ -19,6 +19,12 @@
                                           styleClass="gameObjectsFlowPane"/>
                             </content>
                         </Tab>
+                        <Tab closable="false" text="Balls">
+                            <content>
+                                <FlowPane fx:id="ballsPane" prefHeight="200.0" prefWidth="200.0"
+                                          styleClass="gameObjectsFlowPane"/>
+                            </content>
+                        </Tab>
                         <Tab closable="false" text="Other">
                             <content>
                                 <FlowPane fx:id="otherPane" prefHeight="200.0" prefWidth="200.0"

@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,14 @@ public class Player extends MovingGameObject {
     private static final double JUMP_SPEED = -300;
     private static final double SIDE_SPEED = 100;
     private static final double GRAVITY = 600;
+    private static final double ROTATE_SPEED = 210;
     @XmlTransient
     private double vSpeed = 0;
     @XmlTransient
     private LevelData levelData;
 
-    public Player(double width, double height) {
-        super(Paths.get("images/other", "player.png").toString(), width, height);
+    public Player(String imagePath, double width, double height) {
+        super(imagePath, width, height);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class Player extends MovingGameObject {
                 .collect(Collectors.toList());
         if (leftBlocks.isEmpty()) {
             this.addX(-SIDE_SPEED * seconds);
+            this.addAngle(-ROTATE_SPEED * seconds);
         }
     }
 
@@ -67,6 +68,7 @@ public class Player extends MovingGameObject {
                 .collect(Collectors.toList());
         if (rightBlocks.isEmpty()) {
             this.addX(SIDE_SPEED * seconds);
+            this.addAngle(ROTATE_SPEED * seconds);
         }
     }
 
