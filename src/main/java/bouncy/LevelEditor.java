@@ -197,4 +197,8 @@ public class LevelEditor {
         level1.start();
     }
 
+    @FXML
+    private void onClear() {
+        level.clear();
+    }
 }
