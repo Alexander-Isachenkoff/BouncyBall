@@ -6,10 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(name = "block")
+@XmlType(name = "spikes")
 @NoArgsConstructor
-public class Block extends GameObject {
-    public Block(String imagePath, double width, double height) {
+public class Spikes extends GameObject {
+
+    public Spikes(String imagePath, double width, double height) {
         super(imagePath, width, height);
     }
 }

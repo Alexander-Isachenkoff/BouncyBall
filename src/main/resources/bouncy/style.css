@@ -6,6 +6,8 @@
     -fx-border-color: lightgray;
     -fx-border-radius: 5;
     -fx-cursor: HAND;
+    //-fx-pref-width: 45;
+    //-fx-pref-height: 45;
 }
 
 .gameObjectToggleButton:hover {

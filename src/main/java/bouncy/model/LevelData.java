@@ -1,19 +1,17 @@
 package bouncy.model;
 
+import bouncy.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +26,7 @@ public class LevelData {
             @XmlElement(name = "block", type = Block.class),
             @XmlElement(name = "star", type = Star.class),
             @XmlElement(name = "player", type = Player.class),
+            @XmlElement(name = "spikes", type = Spikes.class),
     })
 
     @Getter
@@ -39,13 +38,7 @@ public class LevelData {
     private String name;
 
     public static LevelData load(String fileName) {
-        try (InputStream ois = Files.newInputStream(Paths.get(fileName))) {
-            JAXBContext context = JAXBContext.newInstance(LevelData.class, Star.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            return (LevelData) unmarshaller.unmarshal(ois);
-        } catch (IOException | JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        return FileUtils.loadXmlObject(fileName, LevelData.class);
     }
 
     public void add(GameObject object) {

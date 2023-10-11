@@ -1,11 +1,10 @@
 package bouncy;
 
-import bouncy.model.GameObject;
-import bouncy.model.LevelData;
-import bouncy.model.Player;
-import bouncy.model.Star;
+import bouncy.model.*;
 import bouncy.view.GameObjectNode;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
@@ -25,6 +24,7 @@ public class Level extends Pane {
     private long lastUpdate;
     private double dtSeconds;
     private int score = 0;
+    private final Timer timer = new Timer();
 
     public Level() {
         getChildren().add(new HBox(5, scoreLabel, fpsLabel));
@@ -57,9 +57,7 @@ public class Level extends Pane {
                 .map(node -> (GameObjectNode) node)
                 .filter(node -> node.getGameObject() == gameObject)
                 .findFirst()
-                .ifPresent(node -> {
-                    Platform.runLater(() -> getChildren().remove(node));
-                });
+                .ifPresent(node -> Platform.runLater(() -> getChildren().remove(node)));
     }
 
     public void start() {
@@ -68,7 +66,7 @@ public class Level extends Pane {
 
         int delay = Math.round(1000 / 120f);
 
-        new Timer().schedule(new TimerTask() {
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 update();
@@ -104,6 +102,17 @@ public class Level extends Pane {
                     remove(star);
                     score++;
                 });
+
+        boolean spikesCollides = levelData.getObjects(Spikes.class)
+                .stream()
+                .anyMatch(player::intersects);
+
+        if (spikesCollides) {
+            timer.cancel();
+            Platform.runLater(() -> {
+                new Alert(Alert.AlertType.NONE, "Проигрыш", ButtonType.OK).show();
+            });
+        }
 
         Platform.runLater(() -> scoreLabel.setText("Score: " + score));
     }

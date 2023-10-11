@@ -2,7 +2,13 @@ package bouncy;
 
 import javafx.scene.image.Image;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -53,6 +59,16 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
         return images;
+    }
+
+    public static <T> T loadXmlObject(String filePath, Class<T> tClass) {
+        try (InputStream ois = Files.newInputStream(Paths.get(filePath))) {
+            JAXBContext context = JAXBContext.newInstance(tClass);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (T) unmarshaller.unmarshal(ois);
+        } catch (IOException | JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package bouncy.model;
 
+import bouncy.ImageDataManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,18 +23,9 @@ public abstract class GameObject {
     private double width;
     @XmlAttribute
     private double height;
-    @XmlAttribute
-    private double colliderX;
-    @XmlAttribute
-    private double colliderY;
-    @XmlAttribute
-    private double colliderWidth;
-    @XmlAttribute
-    private double colliderHeight;
-    @XmlAttribute
-    private String imagePack;
-    @XmlAttribute
-    private String imageName;
+
+    @XmlTransient
+    private ImageData imageData;
 
     @XmlTransient
     private Consumer<Double> onXChanged = d -> {
@@ -48,16 +40,19 @@ public abstract class GameObject {
     private Consumer<Double> onHeightChanged = d -> {
     };
 
-    protected GameObject(String imagePack, String imageName) {
-        setImagePack(imagePack);
-        setImageName(imageName);
-    }
-
-    protected GameObject(String imagePack, String imageName, int width, int height) {
+    protected GameObject(String imagePath, double width, double height) {
         setWidth(width);
         setHeight(height);
-        setImagePack(imagePack);
-        setImageName(imageName);
+        setImagePath(imagePath);
+    }
+
+    @XmlAttribute
+    public String getImagePath() {
+        return imageData.getImagePath();
+    }
+
+    public void setImagePath(String imagePath) {
+        imageData = ImageDataManager.getImageData(imagePath);
     }
 
     public void addX(double x) {
@@ -66,11 +61,6 @@ public abstract class GameObject {
 
     public void addY(double y) {
         setY(getY() + y);
-    }
-
-    public void setPosition(double x, double y) {
-        setX(x);
-        setY(y);
     }
 
     public void setX(double x) {
@@ -93,17 +83,41 @@ public abstract class GameObject {
         onHeightChanged.accept(height);
     }
 
-    public double getRightX() {
-        return getX() + getWidth();
+    public double getColliderAbsoluteX() {
+        return getX() + getColliderX();
     }
 
-    public double getBottomY() {
-        return getY() + getHeight();
+    public double getColliderX() {
+        return getImageData().getCollider().getX() * getWidth();
+    }
+
+    public double getColliderAbsoluteY() {
+        return getY() + getColliderY();
+    }
+
+    public double getColliderY() {
+        return getImageData().getCollider().getY() * getHeight();
+    }
+
+    public double getColliderRightX() {
+        return getColliderAbsoluteX() + getColliderWidth();
+    }
+
+    public double getColliderWidth() {
+        return getImageData().getCollider().getWidth() * getWidth();
+    }
+
+    public double getColliderBottomY() {
+        return getColliderAbsoluteY() + getColliderHeight();
+    }
+
+    public double getColliderHeight() {
+        return getImageData().getCollider().getHeight() * getHeight();
     }
 
     public boolean intersects(GameObject object) {
-        return object.getX() < getRightX() && object.getX() + object.getWidth() > getX() &&
-                object.getY() < getBottomY() && object.getY() + object.getHeight() > getY();
+        return object.getColliderAbsoluteX() < getColliderRightX() && object.getColliderRightX() > getColliderAbsoluteX() &&
+                object.getColliderAbsoluteY() < getColliderBottomY() && object.getColliderBottomY() > getColliderAbsoluteY();
     }
 
 }

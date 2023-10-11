@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class LevelEditor {
     public Tab tilesTab;
     public Accordion tilesAccordion;
     public FlowPane otherPane;
+    public FlowPane spikesPane;
     private Level level;
 
     @FXML
@@ -54,7 +56,7 @@ public class LevelEditor {
             selector.setHeight(GRID_SIZE);
             GameObject selectedItem = getSelectedGameObject();
             if (selectedItem != null) {
-                selector.setFill(new GameObjectNode(selectedItem).getFill());
+                selector.setFill(new GameObjectNode(selectedItem).getObjectRectangle().getFill());
                 selector.setOpacity(0.5);
             } else {
                 selector.setFill(Color.LIGHTSKYBLUE);
@@ -84,14 +86,10 @@ public class LevelEditor {
                 gameObject.setY(y);
                 gameObject.setWidth(GRID_SIZE);
                 gameObject.setHeight(GRID_SIZE);
-                gameObject.setImagePack(selectedItem.getImagePack());
-                gameObject.setImageName(selectedItem.getImageName());
+                gameObject.setImagePath(selectedItem.getImagePath());
                 addGameObject(gameObject);
             }
         });
-
-        addGameObjectToList(otherPane, new Player(GRID_SIZE, GRID_SIZE));
-        addGameObjectToList(otherPane, new Star(GRID_SIZE, GRID_SIZE));
     }
 
     private void addGameObjectToList(Pane pane, GameObject gameObject) {
@@ -110,6 +108,7 @@ public class LevelEditor {
     }
 
     private void initGameObjectsList() {
+        double size = 35;
         List<BlockFamily> blockFamilies = loadBlockFamilies();
         for (BlockFamily blockFamily : blockFamilies) {
             TitledPane titledPane = new TitledPane();
@@ -119,11 +118,20 @@ public class LevelEditor {
             titledPane.setContent(flowPane);
 
             for (String imageName : blockFamily.getImageNames()) {
-                Block gameObject = new Block(blockFamily.getImagesPack(), imageName, 35, 35);
+                Block gameObject = new Block(Paths.get(blockFamily.getImagesPack(), imageName).toString(), size, size);
                 addGameObjectToList(flowPane, gameObject);
             }
             tilesAccordion.getPanes().add(titledPane);
         }
+
+        String packPath = "images/spikes";
+        List<String> fileNames = FileUtils.getPackFileNames(packPath);
+        for (String fileName : fileNames) {
+            addGameObjectToList(spikesPane, new Spikes(new File(packPath, fileName).getPath(), size, size));
+        }
+
+        addGameObjectToList(otherPane, new Player(size, size));
+        addGameObjectToList(otherPane, new Star(size, size));
     }
 
     private List<BlockFamily> loadBlockFamilies() {

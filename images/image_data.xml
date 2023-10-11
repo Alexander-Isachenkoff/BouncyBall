@@ -1,0 +1,13 @@
+<imagesData>
+    <data>
+        <imageData imagePath="images/spikes/spikes.png">
+            <collider x="0" y="0.5" width="1" height="0.5"/>
+        </imageData>
+        <imageData imagePath="images/other/player.png">
+            <collider x="0.25" y="0.25" width="0.5" height="0.5"/>
+        </imageData>
+        <imageData imagePath="images/other/star.png">
+            <collider x="0.25" y="0.25" width="0.5" height="0.5"/>
+        </imageData>
+    </data>
+</imagesData>

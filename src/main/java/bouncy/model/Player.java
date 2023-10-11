@@ -1,33 +1,31 @@
 package bouncy.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @XmlRootElement
 @Getter
 @Setter
+@NoArgsConstructor
 public class Player extends MovingGameObject {
 
     private static final double JUMP_SPEED = -300;
     private static final double SIDE_SPEED = 100;
     private static final double GRAVITY = 600;
-    @XmlAttribute
+    @XmlTransient
     private double vSpeed = 0;
     @XmlTransient
     private LevelData levelData;
 
-    public Player() {
-        this(16, 16);
-    }
-
-    public Player(int width, int height) {
-        super("images/other", "player.png", width, height);
+    public Player(double width, double height) {
+        super(Paths.get("images/other", "player.png").toString(), width, height);
     }
 
     @Override
@@ -35,8 +33,8 @@ public class Player extends MovingGameObject {
         List<Block> blocks = levelData.getObjects(Block.class);
 
         List<Block> bottomBlocks = blocks.stream()
-                .filter(block -> block.getX() <= this.getRightX() && block.getX() + block.getWidth() >= this.getX())
-                .filter(block -> block.getY() <= this.getBottomY() && block.getBottomY() > this.getY())
+                .filter(block -> block.getX() <= this.getColliderRightX() && block.getX() + block.getWidth() >= this.getColliderAbsoluteX())
+                .filter(block -> block.getY() <= this.getColliderBottomY() && block.getColliderBottomY() > this.getColliderAbsoluteY())
                 .collect(Collectors.toList());
 
         if (!bottomBlocks.isEmpty() && this.getVSpeed() >= 0) {
@@ -53,7 +51,7 @@ public class Player extends MovingGameObject {
 
         List<Block> leftBlocks = blocks.stream()
                 .filter(block -> block.getY() < this.getY() && block.getY() + block.getWidth() > this.getY())
-                .filter(block -> block.getRightX() >= this.getX() && block.getX() < this.getX())
+                .filter(block -> block.getColliderRightX() >= this.getX() && block.getX() < this.getX())
                 .collect(Collectors.toList());
         if (leftBlocks.isEmpty()) {
             this.addX(-SIDE_SPEED * seconds);
@@ -65,7 +63,7 @@ public class Player extends MovingGameObject {
 
         List<Block> rightBlocks = blocks.stream()
                 .filter(block -> block.getY() < this.getY() && block.getY() + block.getWidth() > this.getY())
-                .filter(block -> block.getX() <= this.getRightX() && block.getRightX() > this.getX())
+                .filter(block -> block.getX() <= this.getColliderRightX() && block.getColliderRightX() > this.getX())
                 .collect(Collectors.toList());
         if (rightBlocks.isEmpty()) {
             this.addX(SIDE_SPEED * seconds);
