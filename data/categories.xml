@@ -1,0 +1,17 @@
+<categories>
+    <category name="Blocks" imagePath="images/blocks/grass/grass.png">
+        <category name="Cake" className="Block" imagePath="images/blocks/cake/cake.png" pack="images/blocks/cake"/>
+        <category name="Castle" className="Block" imagePath="images/blocks/castle/castle.png" pack="images/blocks/castle"/>
+        <category name="Choco" className="Block" imagePath="images/blocks/choco/choco.png" pack="images/blocks/choco"/>
+        <category name="Dirt" className="Block" imagePath="images/blocks/dirt/dirt.png" pack="images/blocks/dirt"/>
+        <category name="Grass" className="Block" imagePath="images/blocks/grass/grass.png" pack="images/blocks/grass"/>
+        <category name="Metal" className="Block" imagePath="images/blocks/metal/metal.png" pack="images/blocks/metal"/>
+        <category name="Sand" className="Block" imagePath="images/blocks/sand/sand.png" pack="images/blocks/sand"/>
+        <category name="Snow" className="Block" imagePath="images/blocks/snow/snow.png" pack="images/blocks/snow"/>
+        <category name="Stone" className="Block" imagePath="images/blocks/stone/stone.png" pack="images/blocks/stone"/>
+        <category name="Tundra" className="Block" imagePath="images/blocks/tundra/tundra.png" pack="images/blocks/tundra"/>
+    </category>
+    <category name="Spikes" className="Spikes" imagePath="images/spikes/spikesBottom.png" pack="images/spikes"/>
+    <category name="Balls" className="Player" imagePath="images/balls/foot-ball.png" pack="images/balls"/>
+    <category name="Other" className="Star" imagePath="images/other/star.png" pack="images/other"/>
+</categories>

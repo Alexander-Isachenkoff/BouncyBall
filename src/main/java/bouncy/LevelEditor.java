@@ -1,25 +1,26 @@
 package bouncy;
 
-import bouncy.model.*;
+import bouncy.model.Categories;
+import bouncy.model.Category;
+import bouncy.model.GameObject;
+import bouncy.model.LevelData;
 import bouncy.ui.GameObjectToggleButton;
 import bouncy.view.GameObjectNode;
-import com.sun.xml.internal.ws.util.StringUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class LevelEditor {
 
@@ -27,15 +28,14 @@ public class LevelEditor {
     private final Rectangle selector = new Rectangle();
     private final ToggleGroup toggleGroup = new ToggleGroup();
     public Pane levelPane;
-    public Tab tilesTab;
-    public Accordion tilesAccordion;
-    public FlowPane otherPane;
-    public FlowPane spikesPane;
-    public FlowPane ballsPane;
+    public CheckBox collidersCheckBox;
+    public ListView<Category> categoriesList;
+    public VBox blocksPane;
     private Level level;
 
     @FXML
     private void initialize() {
+        collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.collidersProperty);
         level = new Level();
         level.getLevelData().setName("Level 1");
         levelPane.getChildren().add(level);
@@ -93,6 +93,25 @@ public class LevelEditor {
         });
     }
 
+    private FlowPane createGameObjectsFlowPane(Category category) {
+        FlowPane pane = new FlowPane();
+        pane.getStyleClass().add("gameObjectsFlowPane");
+        List<String> fileNames = FileUtils.getPackFileNames(category.getPack());
+        for (String fileName : fileNames) {
+            try {
+                Class<?> aClass = Class.forName("bouncy.model." + category.getClassName());
+                GameObject gameObject = (GameObject) aClass.newInstance();
+                gameObject.setWidth(GRID_SIZE);
+                gameObject.setHeight(GRID_SIZE);
+                gameObject.setImagePath(new File(category.getPack(), fileName).getPath());
+                addGameObjectToList(pane, gameObject);
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return pane;
+    }
+
     private void addGameObjectToList(Pane pane, GameObject gameObject) {
         ToggleButton toggleButton = new GameObjectToggleButton(gameObject);
         toggleButton.setToggleGroup(toggleGroup);
@@ -109,43 +128,68 @@ public class LevelEditor {
     }
 
     private void initGameObjectsList() {
-        double size = GRID_SIZE;
-        List<BlockFamily> blockFamilies = loadBlockFamilies();
-        for (BlockFamily blockFamily : blockFamilies) {
-            TitledPane titledPane = new TitledPane();
-            titledPane.setText(StringUtils.capitalize(blockFamily.getName()));
-            FlowPane flowPane = new FlowPane();
-            flowPane.getStyleClass().add("gameObjectsFlowPane");
-            titledPane.setContent(flowPane);
+        List<Category> categories = Categories.load();
+        categoriesList.getItems().setAll(categories);
+        for (Category category : categories) {
+            createCategoryPane(category);
+        }
 
-            for (String imageName : blockFamily.getImageNames()) {
-                Block gameObject = new Block(Paths.get(blockFamily.getImagesPack(), imageName).toString(), size, size);
-                addGameObjectToList(flowPane, gameObject);
+        categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Node node = createCategoryPane(newValue);
+            blocksPane.getChildren().set(0, node);
+            VBox.setVgrow(node, Priority.ALWAYS);
+        });
+
+        categoriesList.getSelectionModel().select(0);
+
+        categoriesList.setCellFactory(param -> new ListCell<Category>() {
+            @Override
+            protected void updateItem(Category item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    Image image = ImageManager.getImage(item.getImagePath());
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitHeight(30);
+                    imageView.setFitWidth(30);
+                    HBox hBox = new HBox(10, imageView, new Label(item.getName()));
+                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    setGraphic(hBox);
+                } else {
+                    setGraphic(null);
+                }
             }
-            tilesAccordion.getPanes().add(titledPane);
-        }
-
-        String spikesPackPath = "images/spikes";
-        List<String> fileNames = FileUtils.getPackFileNames(spikesPackPath);
-        for (String fileName : fileNames) {
-            addGameObjectToList(spikesPane, new Spikes(new File(spikesPackPath, fileName).getPath(), size, size));
-        }
-
-        String ballsPackPath = "images/balls";
-        List<String> ballsFileNames = FileUtils.getPackFileNames(ballsPackPath);
-        for (String fileName : ballsFileNames) {
-            addGameObjectToList(ballsPane, new Player(new File(ballsPackPath, fileName).getPath(), size, size));
-        }
-
-        addGameObjectToList(otherPane, new Star(size, size));
+        });
     }
 
-    private List<BlockFamily> loadBlockFamilies() {
-        String tilesDir = "images/blocks";
-        File blocksDir = new File(tilesDir);
-        return Arrays.stream(Optional.ofNullable(blocksDir.listFiles()).orElse(new File[0]))
-                .map(file -> new BlockFamily(file.getName(), file.getPath()))
-                .collect(Collectors.toList());
+    private Node createCategoryPane(Category category) {
+        if (category.getCategories().isEmpty()) {
+            return createGameObjectsFlowPane(category);
+        } else {
+            ListView<Category> subCategoriesList = new ListView<>();
+            subCategoriesList.getStyleClass().add("subcategories-list");
+            subCategoriesList.getItems().setAll(category.getCategories());
+            subCategoriesList.setCellFactory(param -> new ListCell<Category>() {
+                @Override
+                protected void updateItem(Category item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (!empty) {
+                        ImageView imageView = new ImageView(ImageManager.getImage(item.getImagePath()));
+                        imageView.setFitWidth(25);
+                        imageView.setFitHeight(25);
+                        setGraphic(imageView);
+                    } else {
+                        setGraphic(null);
+                    }
+                }
+            });
+            HBox vBox = new HBox(subCategoriesList, new VBox());
+            subCategoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                FlowPane pane = createGameObjectsFlowPane(newValue);
+                vBox.getChildren().set(1, pane);
+            });
+            subCategoriesList.getSelectionModel().select(0);
+            return vBox;
+        }
     }
 
     private void drawGrid() {

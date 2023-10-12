@@ -32,7 +32,7 @@ public class ImageDataManager {
     }
 
     static ImagesData loadImagesData() {
-        return FileUtils.loadXmlObject("images/image_data.xml", ImagesData.class);
+        return FileUtils.loadXmlObject("data/image_data.xml", ImagesData.class);
     }
 
 }

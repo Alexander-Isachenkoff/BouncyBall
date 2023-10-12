@@ -1,6 +1,7 @@
 package bouncy.view;
 
 
+import bouncy.AppProperties;
 import bouncy.ImageManager;
 import bouncy.model.GameObject;
 import javafx.scene.image.Image;
@@ -30,7 +31,14 @@ public class GameObjectNode extends Region {
         colliderRectangle.setWidth(gameObject.getColliderWidth());
         colliderRectangle.setHeight(gameObject.getColliderHeight());
         colliderRectangle.setFill(Color.TRANSPARENT);
-        colliderRectangle.setStroke(Color.RED);
+
+        AppProperties.collidersProperty.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                colliderRectangle.setStroke(Color.RED);
+            } else {
+                colliderRectangle.setStroke(Color.TRANSPARENT);
+            }
+        });
 
         Image image = ImageManager.getImage(gameObject.getImageData().getImagePath());
         objectRectangle.setFill(new ImagePattern(image));

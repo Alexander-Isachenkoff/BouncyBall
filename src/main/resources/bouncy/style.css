@@ -1,6 +1,6 @@
 .gameObjectToggleButton {
     -fx-padding: 5;
-    -fx-background-color: white;
+    -fx-background-color: #f2f2f2;
     -fx-background-insets: 0;
     -fx-background-radius: 5;
     -fx-border-color: lightgray;
@@ -22,29 +22,11 @@
     -fx-background-insets: 0, 1, 2;
 }
 
-.gameObjectsFlowPane {
-    -fx-padding: 5;
-    -fx-hgap: 5;
-    -fx-vgap: 5;
-}
-
-.title {
-    -fx-background-color: lightskyblue;
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
-    -fx-pref-height: 30;
-}
-
-.titled-pane:collapsed .title {
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: white;
-}
-
-.title:hover, .button:hover, .tab:hover {
+.button:hover, categories-list-view .list-cell:hover {
     -fx-background-color: deepskyblue;
 }
 
-.title .text, .button .text, .tab .text {
+.button .text {
     -fx-fill: white;
     -fx-font-size: 15;
     -fx-font-weight: bold;
@@ -52,12 +34,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
 }
 
-.title .arrow {
-    -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
-}
-
-.button, .tab {
+.button {
     -fx-background-color: lightskyblue;
     -fx-cursor: HAND;
     -fx-background-radius: 15;
@@ -68,24 +45,80 @@
     -fx-scale-y: 0.9;
 }
 
-.tab {
-    -fx-padding: 2 10 2 10;
-    -fx-background-insets: 0 10 0 0;
+.gameObjectsFlowPane {
+    -fx-background-color: WHITE;
+    -fx-padding: 5;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+.categories-list-view {
+    -fx-background-color: LIGHTGRAY;
+    -fx-padding: 0;
+    -fx-border-width: 0 10 0 0;
+}
+
+.categories-list-view .list-cell {
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 5 0 0 5;
+    -fx-border-radius: 10 0 0 10;
+    -fx-background-insets: 3 0 3 10;
+    -fx-border-insets: 3 0 3 10;
+    -fx-border-width: 0 1 0 0;
+    -fx-border-color: LIGHTGRAY;
+    -fx-padding: 5;
+    -fx-cursor: HAND;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.categories-list-view .list-cell:hover {
+    -fx-background-color: LIGHTGRAY;
+}
+
+.categories-list-view .list-cell:selected {
+    -fx-background-color: WHITE;
+    -fx-border-color: TRANSPARENT;
+}
+
+.list-view .list-cell:empty {
+    -fx-background-color: TRANSPARENT;
+    -fx-border-color: TRANSPARENT;
+    visibility: hidden;
+    -fx-cursor: DEFAULT;
+}
+
+.categories-list-view .list-cell .text {
+    -fx-fill: #444;
+}
+
+.subcategories-list {
+    -fx-pref-width: 45;
+    -fx-min-width: 45;
+    -fx-padding: 0;
+    -fx-border-width: 0 10 0 0;
+    -fx-background-color: WHITE;
+}
+
+.subcategories-list .list-cell {
+    -fx-cursor: HAND;
+
+    -fx-background-color: #f2f2f2;
+    -fx-padding: 4;
     -fx-border-width: 1;
-    -fx-border-color: transparent;
-    -fx-border-insets: 0 10 0 0;
-    -fx-border-radius: 15;
+    -fx-border-color: TRANSPARENT;
+
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-background-insets: 5;
+    -fx-border-insets: 5;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 0, 0);
 }
 
-.tab:selected {
-    -fx-background-color: LIMEGREEN;
-    -fx-border-color: GRAY;
+.subcategories-list .list-cell:hover {
+    -fx-background-color: LIGHTGRAY;
 }
 
-.tab-header-area {
-    -fx-padding: 8;
-}
-
-.tab-pane:focused .tab:selected .focus-indicator {
-    -fx-border-color: none;
+.subcategories-list .list-cell:selected {
+    -fx-background-color: LIGHTSKYBLUE;
 }
