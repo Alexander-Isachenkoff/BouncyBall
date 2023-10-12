@@ -16,11 +16,16 @@ import java.util.stream.Collectors;
 public class Player extends MovingGameObject {
 
     private static final double JUMP_SPEED = -300;
-    private static final double SIDE_SPEED = 100;
+    private static final double SIDE_ACC = 300;
+    private static final double SIDE_RESISTANCE = 100;
+    private static final double MAX_SIDE_SPEED = 100;
     private static final double GRAVITY = 600;
-    private static final double ROTATE_SPEED = 210;
+    private static final double ROTATE_ACC = 210;
+    private static final double ROTATE_RESISTANCE = 90;
     @XmlTransient
     private double vSpeed = 0;
+    private double hSpeed = 0;
+    private double rotationSpeed = 0;
     @XmlTransient
     private LevelData levelData;
 
@@ -43,7 +48,15 @@ public class Player extends MovingGameObject {
 
         this.setVSpeed(this.getVSpeed() + GRAVITY * seconds);
 
+        double res = ((getRotationSpeed() > 0) ? -ROTATE_RESISTANCE : ROTATE_RESISTANCE);
+        this.setRotationSpeed(getRotationSpeed() + res * seconds);
+
+        double res1 = ((getHSpeed() > 0) ? -SIDE_RESISTANCE : SIDE_RESISTANCE);
+        this.setHSpeed(this.getHSpeed() + res1 * seconds);
+
+        this.addAngle(this.getRotationSpeed() * seconds);
         this.addY(this.getVSpeed() * seconds);
+        this.addX(this.getHSpeed() * seconds);
     }
 
     public void moveLeft(double seconds) {
@@ -54,8 +67,8 @@ public class Player extends MovingGameObject {
                 .filter(block -> block.getColliderRightX() >= this.getX() && block.getX() < this.getX())
                 .collect(Collectors.toList());
         if (leftBlocks.isEmpty()) {
-            this.addX(-SIDE_SPEED * seconds);
-            this.addAngle(-ROTATE_SPEED * seconds);
+            this.setHSpeed(getHSpeed() - SIDE_ACC * seconds);
+            this.setRotationSpeed(getRotationSpeed() - ROTATE_ACC * seconds);
         }
     }
 
@@ -67,9 +80,12 @@ public class Player extends MovingGameObject {
                 .filter(block -> block.getX() <= this.getColliderRightX() && block.getColliderRightX() > this.getX())
                 .collect(Collectors.toList());
         if (rightBlocks.isEmpty()) {
-            this.addX(SIDE_SPEED * seconds);
-            this.addAngle(ROTATE_SPEED * seconds);
+            this.setHSpeed(getHSpeed() + SIDE_ACC * seconds);
+            this.setRotationSpeed(getRotationSpeed() + ROTATE_ACC * seconds);
         }
     }
 
+    public void setHSpeed(double hSpeed) {
+        this.hSpeed = Math.max(-MAX_SIDE_SPEED, Math.min(MAX_SIDE_SPEED, hSpeed));
+    }
 }

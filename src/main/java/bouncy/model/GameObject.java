@@ -89,8 +89,8 @@ public abstract class GameObject {
     }
 
     public void setAngle(double angle) {
-        this.angle = angle;
-        onAngleChanged.accept(angle);
+        this.angle = angle % 360;
+        onAngleChanged.accept(this.angle);
     }
 
     public void addAngle(double angle) {
