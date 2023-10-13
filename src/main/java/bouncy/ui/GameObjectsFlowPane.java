@@ -15,7 +15,7 @@ public class GameObjectsFlowPane extends FlowPane {
 
     private final ToggleGroup toggleGroup;
 
-    public GameObjectsFlowPane(ToggleGroup toggleGroup, Category category, double gridSize) {
+    public GameObjectsFlowPane(ToggleGroup toggleGroup, Category category, double imageSize) {
         this.toggleGroup = toggleGroup;
         getStyleClass().add("gameObjectsFlowPane");
         List<String> fileNames = FileUtils.getPackFileNames(category.getPack());
@@ -23,8 +23,8 @@ public class GameObjectsFlowPane extends FlowPane {
             try {
                 Class<?> aClass = Class.forName("bouncy.model." + category.getClassName());
                 GameObject gameObject = (GameObject) aClass.newInstance();
-                gameObject.setWidth(gridSize);
-                gameObject.setHeight(gridSize);
+                gameObject.setWidth(imageSize);
+                gameObject.setHeight(imageSize);
                 gameObject.setImagePath(new File(category.getPack(), fileName).getPath());
                 addGameObjectToList(this, gameObject);
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {

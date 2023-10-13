@@ -46,21 +46,7 @@ public class FileUtils {
         return null;
     }
 
-    public static List<Image> extractImages(String zipPath) {
-        List<Image> images = new ArrayList<>();
-        try (ZipFile zipFile = new ZipFile(zipPath)) {
-            Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = entries.nextElement();
-                Image image = new Image(zipFile.getInputStream(entry));
-                images.add(image);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return images;
-    }
-
+    @SuppressWarnings("unchecked")
     public static <T> T loadXmlObject(String filePath, Class<T> tClass) {
         try (InputStream ois = Files.newInputStream(Paths.get(filePath))) {
             JAXBContext context = JAXBContext.newInstance(tClass);

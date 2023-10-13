@@ -15,7 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,26 +27,19 @@ import java.util.Optional;
 
 public class LevelEditor {
 
-    public static final int GRID_SIZE = 40;
+    public static final int OBJECTS_PANE_IMAGE_SIZE = 40;
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
-    public Pane levelPane;
     public CheckBox collidersCheckBox;
     public ListView<Category> categoriesList;
     public VBox blocksPane;
     public TextField levelNameField;
-    private EditableLevel level;
+    public EditableLevel level;
 
     @FXML
     private void initialize() {
         collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.collidersProperty);
-        level = new EditableLevel(GRID_SIZE) {
-            @Override
-            public GameObject getSelectedGameObject() {
-                return LevelEditor.this.getSelectedGameObject();
-            }
-        };
-        levelPane.getChildren().add(level);
+        level.setGameObjectFactory(this::getSelectedGameObject);
 
         level.getLevelData().setName("New Level");
         levelNameField.setText(level.getLevelData().getName());
@@ -75,7 +71,11 @@ public class LevelEditor {
 
         categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Node node = createCategoryPane(newValue);
-            blocksPane.getChildren().set(0, node);
+            if (blocksPane.getChildren().isEmpty()) {
+                blocksPane.getChildren().add(node);
+            } else {
+                blocksPane.getChildren().set(0, node);
+            }
             VBox.setVgrow(node, Priority.ALWAYS);
         });
 
@@ -102,7 +102,7 @@ public class LevelEditor {
 
     private Node createCategoryPane(Category category) {
         if (category.getCategories().isEmpty()) {
-            return new GameObjectsFlowPane(toggleGroup, category, GRID_SIZE);
+            return new GameObjectsFlowPane(toggleGroup, category, OBJECTS_PANE_IMAGE_SIZE);
         } else {
             ListView<Category> subCategoriesList = new ListView<>();
             subCategoriesList.getStyleClass().add("subcategories-list");
@@ -123,7 +123,7 @@ public class LevelEditor {
             });
             HBox vBox = new HBox(subCategoriesList, new VBox());
             subCategoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                FlowPane pane = new GameObjectsFlowPane(toggleGroup, newValue, GRID_SIZE);
+                FlowPane pane = new GameObjectsFlowPane(toggleGroup, newValue, OBJECTS_PANE_IMAGE_SIZE);
                 vBox.getChildren().set(1, pane);
             });
             subCategoriesList.getSelectionModel().select(0);
@@ -139,7 +139,7 @@ public class LevelEditor {
     @FXML
     private void onStart() {
         PlayingLevel playingLevel = new PlayingLevel(level.getLevelData());
-        Scene scene = levelPane.getScene();
+        Scene scene = level.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();
     }

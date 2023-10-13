@@ -8,30 +8,44 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import lombok.Getter;
+import lombok.Setter;
 
-public abstract class EditableLevel extends Level {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+public class EditableLevel extends Level {
 
     private final Rectangle selector = new Rectangle();
-    private final int gridSize;
+    private final List<Line> lines = new ArrayList<>();
+    @Getter
+    @Setter
+    private int gridSize;
+    @Setter
+    private Supplier<GameObject> gameObjectFactory = () -> null;
+
+    public EditableLevel() {
+        this(40);
+    }
 
     public EditableLevel(int gridSize) {
         this.gridSize = gridSize;
-        drawGrid();
 
+        selector.setOpacity(0.5);
         getChildren().add(selector);
 
         setOnMouseMoved(event -> {
-            double x = Math.floor(event.getX() / gridSize) * gridSize;
-            double y = Math.floor(event.getY() / gridSize) * gridSize;
-            selector.setWidth(gridSize);
-            selector.setHeight(gridSize);
-            GameObject selectedItem = getSelectedGameObject();
+            double x = Math.floor(event.getX() / this.gridSize) * this.gridSize;
+            double y = Math.floor(event.getY() / this.gridSize) * this.gridSize;
+            selector.setWidth(this.gridSize);
+            selector.setHeight(this.gridSize);
+            GameObject selectedItem = gameObjectFactory.get();
             if (selectedItem != null) {
                 selector.setFill(new ImagePattern(ImageManager.getImage(selectedItem.getImagePath())));
             } else {
                 selector.setFill(Color.LIGHTSKYBLUE);
             }
-            selector.setOpacity(0.5);
             selector.setX(x);
             selector.setY(y);
         });
@@ -41,11 +55,11 @@ public abstract class EditableLevel extends Level {
                 return;
             }
 
-            int xIndex = (int) Math.floor(event.getX() / gridSize);
-            int yIndex = (int) Math.floor(event.getY() / gridSize);
-            double x = xIndex * gridSize;
-            double y = yIndex * gridSize;
-            GameObject selectedItem = getSelectedGameObject();
+            int xIndex = (int) Math.floor(event.getX() / this.gridSize);
+            int yIndex = (int) Math.floor(event.getY() / this.gridSize);
+            double x = xIndex * this.gridSize;
+            double y = yIndex * this.gridSize;
+            GameObject selectedItem = gameObjectFactory.get();
             if (selectedItem != null) {
                 GameObject gameObject;
                 try {
@@ -55,12 +69,15 @@ public abstract class EditableLevel extends Level {
                 }
                 gameObject.setX(x);
                 gameObject.setY(y);
-                gameObject.setWidth(gridSize);
-                gameObject.setHeight(gridSize);
+                gameObject.setWidth(this.gridSize);
+                gameObject.setHeight(this.gridSize);
                 gameObject.setImagePath(selectedItem.getImagePath());
                 add(gameObject);
             }
         });
+
+        widthProperty().addListener((observable, oldValue, newValue) -> drawGrid());
+        heightProperty().addListener((observable, oldValue, newValue) -> drawGrid());
     }
 
     @Override
@@ -75,29 +92,38 @@ public abstract class EditableLevel extends Level {
     }
 
     private void drawGrid() {
-        for (int i = 1; i <= 100; i++) {
+        getChildren().removeAll(lines);
+        lines.clear();
+        drawHLines();
+        drawVLines();
+    }
+
+    private void drawHLines() {
+        for (int i = 1; i <= getHeight() / gridSize; i++) {
             Line line = new Line();
             int y = gridSize * i;
             line.setStrokeWidth(1);
             line.setStroke(Color.LIGHTGRAY);
             line.setStartY(y);
             line.setEndY(y);
-            line.setEndX(3000);
-            getChildren().add(line);
+            line.setEndX(getWidth() - 1);
+            getChildren().add(0, line);
+            lines.add(line);
         }
+    }
 
-        for (int i = 1; i <= 100; i++) {
+    private void drawVLines() {
+        for (int i = 1; i <= getWidth() / gridSize; i++) {
             Line line = new Line();
             int y = gridSize * i;
             line.setStrokeWidth(1);
             line.setStroke(Color.LIGHTGRAY);
             line.setStartX(y);
             line.setEndX(y);
-            line.setEndY(3000);
-            getChildren().add(line);
+            line.setEndY(getHeight() - 1);
+            getChildren().add(0, line);
+            lines.add(line);
         }
     }
-
-    public abstract GameObject getSelectedGameObject();
 
 }

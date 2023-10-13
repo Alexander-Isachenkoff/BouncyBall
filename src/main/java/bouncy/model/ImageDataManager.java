@@ -1,8 +1,6 @@
-package bouncy;
+package bouncy.model;
 
-import bouncy.model.Collider;
-import bouncy.model.ImageData;
-import bouncy.model.ImagesData;
+import bouncy.FileUtils;
 
 import java.nio.file.Paths;
 import java.util.HashMap;

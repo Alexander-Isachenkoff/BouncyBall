@@ -1,6 +1,5 @@
 package bouncy.model;
 
-import bouncy.ImageDataManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
