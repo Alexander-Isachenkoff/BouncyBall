@@ -15,7 +15,7 @@ import lombok.Getter;
 public class GameObjectNode extends Region {
 
     private final GameObject gameObject;
-    private final Rectangle objectRectangle = new Rectangle();
+    private final Rectangle imageRectangle = new Rectangle();
     private final Rectangle colliderRectangle = new Rectangle();
 
     public GameObjectNode(GameObject gameObject) {
@@ -23,8 +23,8 @@ public class GameObjectNode extends Region {
         this.setLayoutX(gameObject.getX());
         this.setLayoutY(gameObject.getY());
 
-        objectRectangle.setWidth(gameObject.getWidth());
-        objectRectangle.setHeight(gameObject.getWidth());
+        imageRectangle.setWidth(gameObject.getWidth());
+        imageRectangle.setHeight(gameObject.getWidth());
 
         colliderRectangle.setX(gameObject.getColliderX());
         colliderRectangle.setY(gameObject.getColliderY());
@@ -32,25 +32,28 @@ public class GameObjectNode extends Region {
         colliderRectangle.setHeight(gameObject.getColliderHeight());
         colliderRectangle.setFill(Color.TRANSPARENT);
 
-        AppProperties.collidersProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                colliderRectangle.setStroke(Color.RED);
-            } else {
-                colliderRectangle.setStroke(Color.TRANSPARENT);
-            }
-        });
+        setColliderVisible(AppProperties.collidersProperty.get());
+        AppProperties.collidersProperty.addListener((observable, oldValue, newValue) -> setColliderVisible(newValue));
 
         Image image = ImageManager.getImage(gameObject.getImageData().getImagePath());
-        objectRectangle.setFill(new ImagePattern(image));
+        imageRectangle.setFill(new ImagePattern(image));
 
-        getChildren().add(objectRectangle);
+        getChildren().add(imageRectangle);
         getChildren().add(colliderRectangle);
 
         gameObject.setOnXChanged(this::setLayoutX);
         gameObject.setOnYChanged(this::setLayoutY);
-        gameObject.setOnWidthChanged(objectRectangle::setWidth);
-        gameObject.setOnHeightChanged(objectRectangle::setHeight);
-        gameObject.setOnAngleChanged(objectRectangle::setRotate);
+        gameObject.setOnWidthChanged(imageRectangle::setWidth);
+        gameObject.setOnHeightChanged(imageRectangle::setHeight);
+        gameObject.setOnAngleChanged(imageRectangle::setRotate);
+    }
+
+    private void setColliderVisible(boolean visible) {
+        if (visible) {
+            colliderRectangle.setStroke(Color.RED);
+        } else {
+            colliderRectangle.setStroke(Color.TRANSPARENT);
+        }
     }
 
 }

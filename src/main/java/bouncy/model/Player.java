@@ -4,27 +4,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@XmlRootElement
 @Getter
 @Setter
 @NoArgsConstructor
 public class Player extends MovingGameObject {
 
     private static final double JUMP_SPEED = -300;
-    private static final double SIDE_ACC = 300;
+    private static final double SIDE_ACC = 450;
     private static final double SIDE_RESISTANCE = 100;
-    private static final double MAX_SIDE_SPEED = 100;
+    private static final double MAX_SIDE_SPEED = 150;
     private static final double GRAVITY = 600;
-    private static final double ROTATE_ACC = 210;
-    private static final double ROTATE_RESISTANCE = 90;
+    private static final double ROTATE_ACC = 200;
+    private static final double ROTATE_RESISTANCE = 45;
     @XmlTransient
     private double vSpeed = 0;
+    @XmlTransient
     private double hSpeed = 0;
+    @XmlTransient
     private double rotationSpeed = 0;
     @XmlTransient
     private LevelData levelData;

@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
@@ -57,11 +58,11 @@ public class LevelEditor {
             selector.setHeight(GRID_SIZE);
             GameObject selectedItem = getSelectedGameObject();
             if (selectedItem != null) {
-                selector.setFill(new GameObjectNode(selectedItem).getObjectRectangle().getFill());
-                selector.setOpacity(0.5);
+                selector.setFill(new ImagePattern(ImageManager.getImage(selectedItem.getImagePath())));
             } else {
                 selector.setFill(Color.LIGHTSKYBLUE);
             }
+            selector.setOpacity(0.5);
             selector.setX(x);
             selector.setY(y);
         });
