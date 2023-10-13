@@ -80,7 +80,7 @@ public class LevelData {
             throw new RuntimeException(e);
         }
         try (OutputStream os = Files.newOutputStream(file.toPath())) {
-            JAXBContext context = JAXBContext.newInstance(LevelData.class, Block.class, Player.class, Star.class);
+            JAXBContext context = JAXBContext.newInstance(LevelData.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(this, os);

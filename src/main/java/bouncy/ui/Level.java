@@ -6,15 +6,29 @@ import bouncy.model.Player;
 import bouncy.view.GameObjectNode;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 
+@NoArgsConstructor
 public class Level extends Pane {
 
     private final LevelData levelData = new LevelData();
 
+    public Level(LevelData levelData) {
+        this.initLevelData(levelData);
+    }
+
     public void clear() {
         new HashSet<>(levelData.getGameObjects()).forEach(this::remove);
+    }
+
+    public void initLevelData(LevelData levelData) {
+        this.clear();
+        for (GameObject gameObject : levelData.getGameObjects()) {
+            this.add(gameObject);
+        }
+        this.getLevelData().setName(levelData.getName());
     }
 
     public LevelData getLevelData() {

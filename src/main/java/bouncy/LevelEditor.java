@@ -53,12 +53,7 @@ public class LevelEditor {
     }
 
     private void loadLevelData(String fileName) {
-        LevelData levelData = LevelData.load(fileName);
-        level.clear();
-        for (GameObject gameObject : levelData.getGameObjects()) {
-            level.add(gameObject);
-        }
-        level.getLevelData().setName(levelData.getName());
+        level.initLevelData(LevelData.load(fileName));
         levelNameField.setText(level.getLevelData().getName());
     }
 
@@ -143,10 +138,7 @@ public class LevelEditor {
 
     @FXML
     private void onStart() {
-        PlayingLevel playingLevel = new PlayingLevel();
-        for (GameObject gameObject : level.getLevelData().getGameObjects()) {
-            playingLevel.add(gameObject);
-        }
+        PlayingLevel playingLevel = new PlayingLevel(level.getLevelData());
         Scene scene = levelPane.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();

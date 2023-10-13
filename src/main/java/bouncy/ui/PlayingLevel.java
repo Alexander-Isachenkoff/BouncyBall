@@ -1,5 +1,6 @@
 package bouncy.ui;
 
+import bouncy.model.LevelData;
 import bouncy.model.Player;
 import bouncy.model.Spikes;
 import bouncy.model.Star;
@@ -25,7 +26,8 @@ public class PlayingLevel extends Level {
     private double dtSeconds;
     private int score = 0;
 
-    public PlayingLevel() {
+    public PlayingLevel(LevelData levelData) {
+        super(levelData);
         getChildren().add(new HBox(5, scoreLabel, fpsLabel));
         setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
