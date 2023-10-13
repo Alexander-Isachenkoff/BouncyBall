@@ -19,9 +19,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 public class LevelEditor {
 
@@ -32,19 +34,18 @@ public class LevelEditor {
     public CheckBox collidersCheckBox;
     public ListView<Category> categoriesList;
     public VBox blocksPane;
+    public TextField levelNameField;
     private Level level;
 
     @FXML
     private void initialize() {
         collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.collidersProperty);
         level = new Level();
-        level.getLevelData().setName("Level 1");
         levelPane.getChildren().add(level);
 
-        LevelData levelData = LevelData.load("Level 1.xml");
-        for (GameObject gameObject : levelData.getGameObjects()) {
-            addGameObject(gameObject);
-        }
+        level.getLevelData().setName("New Level");
+        levelNameField.setText(level.getLevelData().getName());
+        levelNameField.textProperty().addListener((observable, oldValue, newValue) -> level.getLevelData().setName(newValue));
 
         initGameObjectsList();
 
@@ -92,6 +93,16 @@ public class LevelEditor {
                 addGameObject(gameObject);
             }
         });
+    }
+
+    private void loadLevelData(String fileName) {
+        LevelData levelData = LevelData.load(fileName);
+        level.clear();
+        for (GameObject gameObject : levelData.getGameObjects()) {
+            addGameObject(gameObject);
+        }
+        level.getLevelData().setName(levelData.getName());
+        levelNameField.setText(level.getLevelData().getName());
     }
 
     private FlowPane createGameObjectsFlowPane(Category category) {
@@ -246,4 +257,31 @@ public class LevelEditor {
     private void onClear() {
         level.clear();
     }
+
+    @FXML
+    private void onLoad() {
+        Stage stage = new Stage();
+        ListView<File> levelsList = new ListView<>();
+        levelsList.setCellFactory(param -> new ListCell<File>() {
+            @Override
+            protected void updateItem(File item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    Button button = new Button("Load");
+                    button.setOnAction(event -> {
+                        stage.close();
+                        loadLevelData(item.getAbsolutePath());
+                    });
+                    setGraphic(new HBox(new Label(item.getName()), button));
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
+        File[] levelsFiles = Optional.ofNullable(new File("data/user_levels").listFiles()).orElse(new File[0]);
+        levelsList.getItems().setAll(levelsFiles);
+        stage.setScene(new Scene(levelsList));
+        stage.show();
+    }
+
 }

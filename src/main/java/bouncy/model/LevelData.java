@@ -72,7 +72,8 @@ public class LevelData {
 
     public void save() {
         String fileName = name + ".xml";
-        File file = new File(fileName);
+        File file = new File("data/user_levels/" + fileName);
+        file.getParentFile().mkdirs();
         try {
             file.createNewFile();
         } catch (IOException e) {

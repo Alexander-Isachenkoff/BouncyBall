@@ -4,13 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1024.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bouncy.LevelEditor">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bouncy.LevelEditor">
     <children>
       <HBox VBox.vgrow="ALWAYS">
          <children>
@@ -30,17 +34,34 @@
                   <AnchorPane HBox.hgrow="ALWAYS">
                      <children>
                               <Pane fx:id="levelPane" prefWidth="836.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <HBox alignment="TOP_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClear" text="Clear" />
-                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onStart" text="Start" />
-                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSave" text="Save" />
+                              <TextField fx:id="levelNameField" prefWidth="200.0" GridPane.columnIndex="1" />
+                              <CheckBox fx:id="collidersCheckBox" mnemonicParsing="false" text="Colliders" />
+                              <Button mnemonicParsing="false" onAction="#onLoad" text="Load" GridPane.columnIndex="2" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
-                        </HBox>
-                        <CheckBox fx:id="collidersCheckBox" mnemonicParsing="false" text="Colliders" />
+                        </GridPane>
+                         <HBox alignment="TOP_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                             <children>
+                                 <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClear" text="Clear" />
+                                 <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onStart" text="Start" />
+                                 <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSave" text="Save" />
+                             </children>
+                             <padding>
+                                 <Insets bottom="15.0" left="10.0" right="10.0" top="10.0" />
+                             </padding>
+                         </HBox>
                      </children>
                   </AnchorPane>
                </children>
