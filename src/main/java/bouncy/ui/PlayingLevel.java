@@ -1,29 +1,31 @@
-package bouncy;
+package bouncy.ui;
 
-import bouncy.model.*;
-import bouncy.view.GameObjectNode;
+import bouncy.model.Player;
+import bouncy.model.Spikes;
+import bouncy.model.Star;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Level extends Pane {
+public class PlayingLevel extends Level {
 
     private final Set<KeyCode> keysPressed = new HashSet<>();
     private final Label scoreLabel = new Label();
     private final Label fpsLabel = new Label();
-    private final LevelData levelData = new LevelData();
+    private final Timer timer = new Timer();
     private long lastUpdate;
     private double dtSeconds;
     private int score = 0;
-    private final Timer timer = new Timer();
 
-    public Level() {
+    public PlayingLevel() {
         getChildren().add(new HBox(5, scoreLabel, fpsLabel));
         setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
@@ -31,34 +33,6 @@ public class Level extends Pane {
         setOnKeyReleased(event -> {
             keysPressed.remove(event.getCode());
         });
-    }
-
-    public void clear() {
-        new HashSet<>(levelData.getGameObjects()).forEach(this::remove);
-    }
-
-    public LevelData getLevelData() {
-        return levelData;
-    }
-
-    public GameObjectNode add(GameObject gameObject) {
-        if (gameObject instanceof Player) {
-            ((Player) gameObject).setLevelData(levelData);
-        }
-        levelData.add(gameObject);
-        GameObjectNode gameObjectNode = new GameObjectNode(gameObject);
-        Platform.runLater(() -> getChildren().add(gameObjectNode));
-        return gameObjectNode;
-    }
-
-    public void remove(GameObject gameObject) {
-        levelData.remove(gameObject);
-        getChildren().stream()
-                .filter(node -> node instanceof GameObjectNode)
-                .map(node -> (GameObjectNode) node)
-                .filter(node -> node.getGameObject() == gameObject)
-                .findFirst()
-                .ifPresent(node -> Platform.runLater(() -> getChildren().remove(node)));
     }
 
     public void start() {
@@ -85,7 +59,7 @@ public class Level extends Pane {
     }
 
     private void processBall() {
-        Player player = levelData.getPlayer();
+        Player player = getLevelData().getPlayer();
 
         player.move(dtSeconds);
 
@@ -97,14 +71,14 @@ public class Level extends Pane {
             player.moveRight(dtSeconds);
         }
 
-        levelData.getObjects(Star.class).stream()
+        getLevelData().getObjects(Star.class).stream()
                 .filter(player::intersects)
                 .forEach(star -> {
                     remove(star);
                     score++;
                 });
 
-        boolean spikesCollides = levelData.getObjects(Spikes.class)
+        boolean spikesCollides = getLevelData().getObjects(Spikes.class)
                 .stream()
                 .anyMatch(player::intersects);
 
