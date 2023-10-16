@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polyline?>
+
+<AnchorPane fx:id="root" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bouncy.LevelIconController">
+   <children>
+      <Button fx:id="button" mnemonicParsing="false" styleClass="level-button" text="1" />
+      <Pane fx:id="checkMarkPlace" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 3; -fx-border-width: 1; -fx-background-radius: 3;" AnchorPane.rightAnchor="-5.0" AnchorPane.topAnchor="-5.0">
+         <children>
+            <Polyline fx:id="checkMark" fill="#80ff0000" points="11.0, 4.0, 7.5, 11.25, 4.25, 7.5" stroke="#297500" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeWidth="2.5" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

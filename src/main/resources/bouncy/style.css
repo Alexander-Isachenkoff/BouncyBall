@@ -125,3 +125,14 @@
 .subcategories-list .list-cell:selected {
     -fx-background-color: LIGHTSKYBLUE;
 }
+
+.level-button {
+    -fx-background-color: #70eb30;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-width: 0.5;
+    -fx-border-color: #9AB;
+    -fx-pref-width: 35;
+    -fx-pref-height: 35;
+    -fx-padding: 0;
+}
