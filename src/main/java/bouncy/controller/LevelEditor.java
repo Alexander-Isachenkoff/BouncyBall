@@ -1,5 +1,7 @@
-package bouncy;
+package bouncy.controller;
 
+import bouncy.AppProperties;
+import bouncy.ui.ImageManager;
 import bouncy.model.Categories;
 import bouncy.model.Category;
 import bouncy.model.GameObject;

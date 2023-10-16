@@ -1,8 +1,8 @@
-package bouncy;
+package bouncy.controller;
 
 import bouncy.model.LevelProgressData;
 import bouncy.model.LevelsProgressData;
-import bouncy.view.ViewUtils;
+import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;

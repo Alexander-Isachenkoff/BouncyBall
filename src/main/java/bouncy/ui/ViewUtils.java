@@ -1,4 +1,4 @@
-package bouncy.view;
+package bouncy.ui;
 
 import bouncy.Main;
 import javafx.fxml.FXMLLoader;

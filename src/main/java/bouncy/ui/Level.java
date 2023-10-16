@@ -3,7 +3,6 @@ package bouncy.ui;
 import bouncy.model.GameObject;
 import bouncy.model.LevelData;
 import bouncy.model.Player;
-import bouncy.view.GameObjectNode;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import lombok.NoArgsConstructor;

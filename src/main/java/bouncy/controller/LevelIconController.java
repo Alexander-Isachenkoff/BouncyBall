@@ -1,4 +1,4 @@
-package bouncy;
+package bouncy.controller;
 
 import bouncy.model.LevelData;
 import bouncy.model.LevelProgressData;

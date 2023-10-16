@@ -1,8 +1,7 @@
-package bouncy.view;
+package bouncy.ui;
 
 
 import bouncy.AppProperties;
-import bouncy.ImageManager;
 import bouncy.model.GameObject;
 import bouncy.model.Liquid;
 import javafx.geometry.Side;

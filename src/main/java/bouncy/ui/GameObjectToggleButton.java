@@ -1,7 +1,6 @@
 package bouncy.ui;
 
 import bouncy.model.GameObject;
-import bouncy.view.GameObjectNode;
 import javafx.scene.control.ToggleButton;
 import lombok.Getter;
 

@@ -1,8 +1,6 @@
 package bouncy.ui;
 
-import bouncy.ImageManager;
 import bouncy.model.GameObject;
-import bouncy.view.GameObjectNode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;

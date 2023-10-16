@@ -1,6 +1,6 @@
-package bouncy;
+package bouncy.controller;
 
-import bouncy.view.ViewUtils;
+import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
