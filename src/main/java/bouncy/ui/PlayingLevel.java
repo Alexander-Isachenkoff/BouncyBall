@@ -1,9 +1,6 @@
 package bouncy.ui;
 
-import bouncy.model.LevelData;
-import bouncy.model.Player;
-import bouncy.model.Spikes;
-import bouncy.model.Star;
+import bouncy.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -24,6 +21,7 @@ public class PlayingLevel extends Level {
     private final Timer timer = new Timer();
     private long lastUpdate;
     private double dtSeconds;
+    private double totalSeconds;
     private int score = 0;
 
     public PlayingLevel(LevelData levelData) {
@@ -55,9 +53,13 @@ public class PlayingLevel extends Level {
         requestFocus();
         long dtMills = System.currentTimeMillis() - lastUpdate;
         dtSeconds = dtMills / 1000.0;
+        totalSeconds += dtSeconds;
         Platform.runLater(() -> fpsLabel.setText("FPS: " + Math.round(1 / dtSeconds)));
         lastUpdate = System.currentTimeMillis();
         processBall();
+
+        getLevelData().getObjects(Liquid.class)
+                .forEach(liquid -> liquid.setStateTime(totalSeconds));
     }
 
     private void processBall() {
