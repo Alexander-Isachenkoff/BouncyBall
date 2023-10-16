@@ -1,15 +1,11 @@
 package bouncy.controller;
 
 import bouncy.AppProperties;
-import bouncy.ui.ImageManager;
 import bouncy.model.Categories;
 import bouncy.model.Category;
 import bouncy.model.GameObject;
 import bouncy.model.LevelData;
-import bouncy.ui.EditableLevel;
-import bouncy.ui.GameObjectToggleButton;
-import bouncy.ui.GameObjectsFlowPane;
-import bouncy.ui.PlayingLevel;
+import bouncy.ui.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -140,7 +136,8 @@ public class LevelEditor {
 
     @FXML
     private void onStart() {
-        PlayingLevel playingLevel = new PlayingLevel(level.getLevelData());
+        level.getLevelData().saveTemp();
+        PlayingLevel playingLevel = new PlayingLevel(LevelData::loadTemp);
         Scene scene = level.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();

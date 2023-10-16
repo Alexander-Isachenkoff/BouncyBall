@@ -24,7 +24,7 @@ public class LevelIconController {
         button.setText(String.valueOf(levelProgressData.getIndex()));
         checkMark.setVisible(levelProgressData.isDone());
         button.setOnAction(event -> {
-            PlayingLevel playingLevel = new PlayingLevel(LevelData.load(levelProgressData.getFileName()));
+            PlayingLevel playingLevel = new PlayingLevel(() -> LevelData.load(levelProgressData.getFileName()));
             checkMark.getScene().setRoot(playingLevel);
             playingLevel.start();
         });

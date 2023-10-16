@@ -1,5 +1,5 @@
 <levelsProgressData>
-    <levelProgressData index="1" fileName="data/levels/level 1.xml" done="false"/>
-    <levelProgressData index="2" fileName="data/levels/level 2.xml" done="false"/>
-    <levelProgressData index="3" fileName="data/levels/level 3.xml" done="false"/>
+    <levelProgressData index="1" fileName="data/levels/level 1.xml" done="true"/>
+    <levelProgressData index="2" fileName="data/levels/level 2.xml" done="true"/>
+    <levelProgressData index="3" fileName="data/levels/level 3.xml" done="true"/>
 </levelsProgressData>

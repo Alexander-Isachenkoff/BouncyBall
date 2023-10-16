@@ -1,32 +1,43 @@
 package bouncy.ui;
 
+import bouncy.controller.DefeatController;
 import bouncy.model.*;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Supplier;
 
 public class PlayingLevel extends Level {
 
     private final Set<KeyCode> keysPressed = new HashSet<>();
-    private final Label scoreLabel = new Label();
     private final Label fpsLabel = new Label();
-    private final Timer timer = new Timer();
+    private final int delay = Math.round(1000 / 120f);
+    private final Supplier<LevelData> levelDataLoader;
+    private Timer timer;
     private long lastUpdate;
     private double dtSeconds;
     private double totalSeconds;
-    private int score = 0;
 
-    public PlayingLevel(LevelData levelData) {
-        super(levelData);
-        getChildren().add(new HBox(5, scoreLabel, fpsLabel));
+    public PlayingLevel(Supplier<LevelData> levelDataLoader) {
+        super(levelDataLoader.get());
+        this.levelDataLoader = levelDataLoader;
+        Button button = new Button("restart");
+        button.setOnAction(event -> restart());
+        getChildren().add(new HBox(5, fpsLabel, button));
         setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
@@ -38,9 +49,7 @@ public class PlayingLevel extends Level {
     public void start() {
         requestFocus();
         lastUpdate = System.currentTimeMillis();
-
-        int delay = Math.round(1000 / 120f);
-
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -77,23 +86,36 @@ public class PlayingLevel extends Level {
 
         getLevelData().getObjects(Star.class).stream()
                 .filter(player::intersects)
-                .forEach(star -> {
-                    remove(star);
-                    score++;
-                });
+                .forEach(this::remove);
 
-        boolean spikesCollides = getLevelData().getObjects(Spikes.class)
-                .stream()
-                .anyMatch(player::intersects);
-
-        if (spikesCollides) {
+        if (isDefeat(player)) {
             timer.cancel();
             Platform.runLater(() -> {
-                new Alert(Alert.AlertType.NONE, "Проигрыш", ButtonType.OK).show();
+                Stage stage = new Stage(StageStyle.TRANSPARENT);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                Pair<?, Parent> load = ViewUtils.load("fxml/defeat.fxml");
+                DefeatController controller = (DefeatController) load.getKey();
+                controller.setOnRetry(() -> {
+                    load.getValue().getScene().getWindow().hide();
+                    restart();
+                });
+                Scene scene = new Scene(load.getValue());
+                scene.setFill(Color.TRANSPARENT);
+                stage.setScene(scene);
+                stage.show();
             });
         }
+    }
 
-        Platform.runLater(() -> scoreLabel.setText("Score: " + score));
+    private void restart() {
+        initLevelData(levelDataLoader.get());
+        start();
+    }
+
+    private boolean isDefeat(Player player) {
+        return getLevelData().getObjects(Spikes.class, Liquid.class)
+                .stream()
+                .anyMatch(player::intersects);
     }
 
 }

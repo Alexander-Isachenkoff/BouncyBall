@@ -33,5 +33,12 @@
             <collider x="0.6" y="0.075" width="0.4" height="0.85"/>
         </imageData>
 
+        <imageData imagePath="images/liquid/liquidLavaTop_mid.png">
+            <collider x="0" y="0.4" width="1" height="0.6"/>
+        </imageData>
+        <imageData imagePath="images/liquid/liquidWaterTop_mid.png">
+            <collider x="0" y="0.4" width="1" height="0.6"/>
+        </imageData>
+
     </data>
 </imagesData>

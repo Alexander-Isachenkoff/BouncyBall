@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,9 @@ import java.util.stream.Collectors;
 @XmlRootElement(name = "Level")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LevelData {
+
+    public static final String USER_LEVELS_DIR = "data/user_levels/";
+    public static final String TEMP_FILE_NAME = "temp.xml";
 
     @XmlElementWrapper(name = "objects")
     @XmlElements({
@@ -43,6 +47,10 @@ public class LevelData {
         return FileUtils.loadXmlObject(fileName, LevelData.class);
     }
 
+    public static LevelData loadTemp() {
+        return load(USER_LEVELS_DIR + TEMP_FILE_NAME);
+    }
+
     public void add(GameObject object) {
         gameObjects.add(object);
     }
@@ -59,6 +67,13 @@ public class LevelData {
                 .collect(Collectors.toList());
     }
 
+    @SafeVarargs
+    public final List<GameObject> getObjects(Class<? extends GameObject>... tClasses) {
+        return gameObjects.stream()
+                .filter(gameObject -> Arrays.asList(tClasses).contains(gameObject.getClass()))
+                .collect(Collectors.toList());
+    }
+
     @SuppressWarnings("unchecked")
     public <T extends GameObject> T getObject(Class<T> tClass) {
         return gameObjects.stream()
@@ -72,9 +87,17 @@ public class LevelData {
         return getObject(Player.class);
     }
 
+    public void saveTemp() {
+        save(TEMP_FILE_NAME);
+    }
+
     public void save() {
         String fileName = name + ".xml";
-        File file = new File("data/user_levels/" + fileName);
+        save(fileName);
+    }
+
+    private void save(String fileName) {
+        File file = new File(USER_LEVELS_DIR + fileName);
         file.getParentFile().mkdirs();
         try {
             file.createNewFile();
