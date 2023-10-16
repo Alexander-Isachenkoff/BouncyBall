@@ -136,3 +136,8 @@
     -fx-pref-height: 35;
     -fx-padding: 0;
 }
+
+.level-button:disabled {
+    -fx-background-color: LIGHTGRAY;
+    -fx-opacity: 1;
+}
