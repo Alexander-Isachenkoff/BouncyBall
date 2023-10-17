@@ -137,7 +137,7 @@ public class LevelEditor {
     @FXML
     private void onStart() {
         level.getLevelData().saveTemp();
-        PlayingLevel playingLevel = new PlayingLevel(LevelData::loadTemp);
+        PlayingLevel playingLevel = new EditorLevel(LevelData::loadTemp);
         Scene scene = level.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();

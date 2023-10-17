@@ -11,7 +11,7 @@ public class MenuController {
 
     @FXML
     private void onPlay() {
-        Parent parent = ViewUtils.loadView("fxml/levels.fxml");
+        Parent parent = ViewUtils.loadLevels();
         root.getScene().setRoot(parent);
     }
 

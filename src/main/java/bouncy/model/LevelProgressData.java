@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class LevelProgressData {
     @XmlAttribute
     private int index;
+    @Setter
     @XmlAttribute
     private boolean done;
     @XmlAttribute

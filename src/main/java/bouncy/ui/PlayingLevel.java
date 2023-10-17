@@ -1,22 +1,11 @@
 package bouncy.ui;
 
-import bouncy.controller.DefeatController;
-import bouncy.model.GameObject;
-import bouncy.model.LevelData;
-import bouncy.model.Liquid;
-import bouncy.model.Player;
+import bouncy.model.*;
 import javafx.application.Platform;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Supplier;
 
-public class PlayingLevel extends Level {
+public abstract class PlayingLevel extends Level {
 
     private final Set<KeyCode> keysPressed = new HashSet<>();
     private final Label fpsLabel = new Label();
@@ -91,26 +80,26 @@ public class PlayingLevel extends Level {
             player.moveRight(dtSeconds);
         }
 
+        if (isWin()) {
+            timer.cancel();
+            onWin();
+        }
+
         if (player.isDead()) {
             timer.cancel();
-            Platform.runLater(() -> {
-                Stage stage = new Stage(StageStyle.TRANSPARENT);
-                stage.initModality(Modality.APPLICATION_MODAL);
-                Pair<?, Parent> load = ViewUtils.load("fxml/defeat.fxml");
-                DefeatController controller = (DefeatController) load.getKey();
-                controller.setOnRetry(() -> {
-                    load.getValue().getScene().getWindow().hide();
-                    restart();
-                });
-                Scene scene = new Scene(load.getValue());
-                scene.setFill(Color.TRANSPARENT);
-                stage.setScene(scene);
-                stage.show();
-            });
+            onDead();
         }
     }
 
-    private void restart() {
+    protected abstract void onDead();
+
+    protected abstract void onWin();
+
+    private boolean isWin() {
+        return getLevelData().getObjects(Star.class).isEmpty();
+    }
+
+    void restart() {
         keysPressed.clear();
         initLevelData(levelDataLoader.get());
         start();

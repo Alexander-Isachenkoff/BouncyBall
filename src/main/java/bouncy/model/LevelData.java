@@ -4,14 +4,7 @@ import bouncy.FileUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,21 +95,7 @@ public class LevelData {
     }
 
     private void save(String fileName) {
-        File file = new File(USER_LEVELS_DIR + fileName);
-        file.getParentFile().mkdirs();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try (OutputStream os = Files.newOutputStream(file.toPath())) {
-            JAXBContext context = JAXBContext.newInstance(LevelData.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(this, os);
-        } catch (IOException | JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        FileUtils.saveXmlObject(this, USER_LEVELS_DIR + fileName);
     }
 
 }

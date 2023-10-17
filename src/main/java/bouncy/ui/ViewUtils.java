@@ -13,18 +13,15 @@ public class ViewUtils {
         return loadView("fxml/menu.fxml");
     }
 
-    public static Parent loadView(String fxml) {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml));
-        Parent load;
-        try {
-            load = fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return load;
+    public static Parent loadLevels() {
+        return loadView("fxml/levels.fxml");
     }
 
-    public static Pair<?, Parent> load(String fxml) {
+    public static Parent loadView(String fxml) {
+        return loadWithController(fxml).getValue();
+    }
+
+    public static <T> Pair<T, Parent> loadWithController(String fxml) {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml));
         Parent load;
         try {

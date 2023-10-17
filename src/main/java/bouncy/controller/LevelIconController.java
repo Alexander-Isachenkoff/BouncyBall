@@ -1,13 +1,12 @@
 package bouncy.controller;
 
-import bouncy.model.LevelData;
 import bouncy.model.LevelProgressData;
-import bouncy.ui.PlayingLevel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polyline;
+import lombok.Setter;
 
 public class LevelIconController {
 
@@ -20,14 +19,14 @@ public class LevelIconController {
     @FXML
     private Polyline checkMark;
 
+    @Setter
+    private Runnable onClick = () -> {
+    };
+
     public void init(LevelProgressData levelProgressData, boolean isAvailable) {
         button.setText(String.valueOf(levelProgressData.getIndex()));
         checkMark.setVisible(levelProgressData.isDone());
-        button.setOnAction(event -> {
-            PlayingLevel playingLevel = new PlayingLevel(() -> LevelData.load(levelProgressData.getFileName()));
-            checkMark.getScene().setRoot(playingLevel);
-            playingLevel.start();
-        });
+        button.setOnAction(event -> onClick.run());
         root.setDisable(!isAvailable);
         checkMarkPlace.setVisible(isAvailable);
     }
