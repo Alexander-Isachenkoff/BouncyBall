@@ -24,6 +24,7 @@ public class Block extends GameObject {
                 case RIGHT:
                     player.setX(getColliderRightX() - player.getColliderX());
                     player.setHSpeed(-player.getHSpeed());
+                    player.setRotationSpeed(-player.getRotationSpeed());
                     break;
                 case BOTTOM:
                     player.setY(getColliderBottomY() - player.getColliderY());
@@ -32,6 +33,7 @@ public class Block extends GameObject {
                 case LEFT:
                     player.setX(getColliderAbsoluteX() - player.getWidth() + player.getColliderX());
                     player.setHSpeed(-player.getHSpeed());
+                    player.setRotationSpeed(-player.getRotationSpeed());
                     break;
             }
             System.out.println(intersection.name());
