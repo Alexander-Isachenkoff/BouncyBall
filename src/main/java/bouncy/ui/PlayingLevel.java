@@ -111,6 +111,7 @@ public class PlayingLevel extends Level {
     }
 
     private void restart() {
+        keysPressed.clear();
         initLevelData(levelDataLoader.get());
         start();
     }
