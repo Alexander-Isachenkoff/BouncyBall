@@ -2,24 +2,26 @@ package bouncy.ui;
 
 import bouncy.model.GameObject;
 import bouncy.model.LevelData;
-import bouncy.model.Player;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-import java.util.HashSet;
-
-@NoArgsConstructor
 public class Level extends Pane {
 
+    @Getter
     private final LevelData levelData = new LevelData();
 
+    public Level() {
+        this.levelData.setRemoveListener(this::removeNodeByGameObject);
+    }
+
     public Level(LevelData levelData) {
+        this();
         this.initLevelData(levelData);
     }
 
     public void clear() {
-        new HashSet<>(levelData.getGameObjects()).forEach(this::remove);
+        getLevelData().clear();
     }
 
     public void initLevelData(LevelData levelData) {
@@ -30,22 +32,19 @@ public class Level extends Pane {
         this.getLevelData().setName(levelData.getName());
     }
 
-    public LevelData getLevelData() {
-        return levelData;
-    }
-
     public GameObjectNode add(GameObject gameObject) {
-        if (gameObject instanceof Player) {
-            ((Player) gameObject).setLevelData(levelData);
-        }
-        levelData.add(gameObject);
+        gameObject.setLevelData(getLevelData());
+        getLevelData().add(gameObject);
         GameObjectNode gameObjectNode = new GameObjectNode(gameObject);
         Platform.runLater(() -> getChildren().add(gameObjectNode));
         return gameObjectNode;
     }
 
     public void remove(GameObject gameObject) {
-        levelData.remove(gameObject);
+        getLevelData().remove(gameObject);
+    }
+
+    private void removeNodeByGameObject(GameObject gameObject) {
         getChildren().stream()
                 .filter(node -> node instanceof GameObjectNode)
                 .map(node -> (GameObjectNode) node)

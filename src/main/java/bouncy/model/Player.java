@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,7 +25,7 @@ public class Player extends MovingGameObject {
     @XmlTransient
     private double rotationSpeed = 0;
     @XmlTransient
-    private LevelData levelData;
+    private boolean isDead = false;
 
     public Player(String imagePath, double width, double height) {
         super(imagePath, width, height);
@@ -35,17 +33,6 @@ public class Player extends MovingGameObject {
 
     @Override
     public void move(double seconds) {
-        List<Block> blocks = levelData.getObjects(Block.class);
-
-        List<Block> bottomBlocks = blocks.stream()
-                .filter(block -> block.getX() <= this.getColliderRightX() && block.getX() + block.getWidth() >= this.getColliderAbsoluteX())
-                .filter(block -> block.getY() <= this.getColliderBottomY() && block.getColliderBottomY() > this.getColliderAbsoluteY())
-                .collect(Collectors.toList());
-
-        if (!bottomBlocks.isEmpty() && this.getVSpeed() >= 0) {
-            this.setVSpeed(JUMP_SPEED);
-        }
-
         this.setVSpeed(this.getVSpeed() + GRAVITY * seconds);
 
         double res = ((getRotationSpeed() > 0) ? -ROTATE_RESISTANCE : ROTATE_RESISTANCE);
@@ -59,30 +46,18 @@ public class Player extends MovingGameObject {
         this.addX(this.getHSpeed() * seconds);
     }
 
-    public void moveLeft(double seconds) {
-        List<Block> blocks = levelData.getObjects(Block.class);
+    public void jump() {
+        this.setVSpeed(JUMP_SPEED);
+    }
 
-        List<Block> leftBlocks = blocks.stream()
-                .filter(block -> block.getY() < this.getY() && block.getY() + block.getWidth() > this.getY())
-                .filter(block -> block.getColliderRightX() >= this.getX() && block.getX() < this.getX())
-                .collect(Collectors.toList());
-        if (leftBlocks.isEmpty()) {
-            this.setHSpeed(getHSpeed() - SIDE_ACC * seconds);
-            this.setRotationSpeed(getRotationSpeed() - ROTATE_ACC * seconds);
-        }
+    public void moveLeft(double seconds) {
+        this.setHSpeed(getHSpeed() - SIDE_ACC * seconds);
+        this.setRotationSpeed(getRotationSpeed() - ROTATE_ACC * seconds);
     }
 
     public void moveRight(double seconds) {
-        List<Block> blocks = levelData.getObjects(Block.class);
-
-        List<Block> rightBlocks = blocks.stream()
-                .filter(block -> block.getY() < this.getY() && block.getY() + block.getWidth() > this.getY())
-                .filter(block -> block.getX() <= this.getColliderRightX() && block.getColliderRightX() > this.getX())
-                .collect(Collectors.toList());
-        if (rightBlocks.isEmpty()) {
-            this.setHSpeed(getHSpeed() + SIDE_ACC * seconds);
-            this.setRotationSpeed(getRotationSpeed() + ROTATE_ACC * seconds);
-        }
+        this.setHSpeed(getHSpeed() + SIDE_ACC * seconds);
+        this.setRotationSpeed(getRotationSpeed() + ROTATE_ACC * seconds);
     }
 
     public void setHSpeed(double hSpeed) {

@@ -44,6 +44,10 @@ public abstract class GameObject {
     private Consumer<Double> onAngleChanged = d -> {
     };
 
+    @XmlTransient
+    @Getter
+    private LevelData levelData;
+
     protected GameObject(String imagePath, double width, double height) {
         setWidth(width);
         setHeight(height);
@@ -131,6 +135,9 @@ public abstract class GameObject {
     public boolean intersects(GameObject object) {
         return object.getColliderAbsoluteX() < getColliderRightX() && object.getColliderRightX() > getColliderAbsoluteX() &&
                 object.getColliderAbsoluteY() < getColliderBottomY() && object.getColliderBottomY() > getColliderAbsoluteY();
+    }
+
+    public void affectPlayer(Player player) {
     }
 
 }

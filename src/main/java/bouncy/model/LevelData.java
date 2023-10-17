@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @XmlRootElement(name = "Level")
@@ -43,6 +43,11 @@ public class LevelData {
     @XmlAttribute
     private String name;
 
+    @XmlTransient
+    @Setter
+    private Consumer<GameObject> removeListener = gameObject -> {
+    };
+
     public static LevelData load(String fileName) {
         return FileUtils.loadXmlObject(fileName, LevelData.class);
     }
@@ -57,6 +62,13 @@ public class LevelData {
 
     public void remove(GameObject object) {
         gameObjects.remove(object);
+        removeListener.accept(object);
+    }
+
+    public void clear() {
+        HashSet<GameObject> removed = new HashSet<>(gameObjects);
+        gameObjects.clear();
+        removed.forEach(removeListener);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,13 +76,6 @@ public class LevelData {
         return gameObjects.stream()
                 .filter(gameObject -> gameObject.getClass() == tClass)
                 .map(gameObject -> (T) gameObject)
-                .collect(Collectors.toList());
-    }
-
-    @SafeVarargs
-    public final List<GameObject> getObjects(Class<? extends GameObject>... tClasses) {
-        return gameObjects.stream()
-                .filter(gameObject -> Arrays.asList(tClasses).contains(gameObject.getClass()))
                 .collect(Collectors.toList());
     }
 

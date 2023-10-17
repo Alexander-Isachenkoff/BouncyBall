@@ -1,7 +1,10 @@
 package bouncy.ui;
 
 import bouncy.controller.DefeatController;
-import bouncy.model.*;
+import bouncy.model.GameObject;
+import bouncy.model.LevelData;
+import bouncy.model.Liquid;
+import bouncy.model.Player;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -76,6 +79,10 @@ public class PlayingLevel extends Level {
 
         player.move(dtSeconds);
 
+        for (GameObject gameObject : new HashSet<>(getLevelData().getGameObjects())) {
+            gameObject.affectPlayer(player);
+        }
+
         if (keysPressed.contains(KeyCode.LEFT)) {
             player.moveLeft(dtSeconds);
         }
@@ -84,11 +91,7 @@ public class PlayingLevel extends Level {
             player.moveRight(dtSeconds);
         }
 
-        getLevelData().getObjects(Star.class).stream()
-                .filter(player::intersects)
-                .forEach(this::remove);
-
-        if (isDefeat(player)) {
+        if (player.isDead()) {
             timer.cancel();
             Platform.runLater(() -> {
                 Stage stage = new Stage(StageStyle.TRANSPARENT);
@@ -110,12 +113,6 @@ public class PlayingLevel extends Level {
     private void restart() {
         initLevelData(levelDataLoader.get());
         start();
-    }
-
-    private boolean isDefeat(Player player) {
-        return getLevelData().getObjects(Spikes.class, Liquid.class)
-                .stream()
-                .anyMatch(player::intersects);
     }
 
 }

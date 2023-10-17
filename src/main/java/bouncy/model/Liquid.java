@@ -21,4 +21,11 @@ public class Liquid extends GameObject {
         onStateTimeChanged.accept(this.stateTime);
     }
 
+    @Override
+    public void affectPlayer(Player player) {
+        if (intersects(player)) {
+            player.setDead(true);
+        }
+    }
+
 }
