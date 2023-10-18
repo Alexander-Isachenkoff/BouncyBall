@@ -1,8 +1,8 @@
 package bouncy.ui;
 
-import bouncy.FileUtils;
 import bouncy.model.Category;
 import bouncy.model.GameObject;
+import bouncy.util.FileUtils;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;

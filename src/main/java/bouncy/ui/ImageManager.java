@@ -1,6 +1,6 @@
 package bouncy.ui;
 
-import bouncy.FileUtils;
+import bouncy.util.FileUtils;
 import javafx.scene.image.Image;
 
 import java.io.File;

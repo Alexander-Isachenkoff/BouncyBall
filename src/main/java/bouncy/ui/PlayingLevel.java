@@ -1,16 +1,14 @@
 package bouncy.ui;
 
 import bouncy.model.*;
+import bouncy.util.Sets;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.function.Supplier;
 
 public abstract class PlayingLevel extends Level {
@@ -23,6 +21,8 @@ public abstract class PlayingLevel extends Level {
     private long lastUpdate;
     private double dtSeconds;
     private double totalSeconds;
+    private final Set<KeyCode> leftKeys = Sets.of(KeyCode.A, KeyCode.LEFT);
+    private final Set<KeyCode> rightKeys = Sets.of(KeyCode.D, KeyCode.RIGHT);
 
     public PlayingLevel(Supplier<LevelData> levelDataLoader) {
         super(levelDataLoader.get());
@@ -72,11 +72,11 @@ public abstract class PlayingLevel extends Level {
             gameObject.affectPlayer(player);
         }
 
-        if (keysPressed.contains(KeyCode.LEFT)) {
+        if (containsAny(keysPressed, leftKeys)) {
             player.moveLeft(dtSeconds);
         }
 
-        if (keysPressed.contains(KeyCode.RIGHT)) {
+        if (containsAny(keysPressed, rightKeys)) {
             player.moveRight(dtSeconds);
         }
 
@@ -89,6 +89,10 @@ public abstract class PlayingLevel extends Level {
             timer.cancel();
             onDead();
         }
+    }
+
+    private static <T> boolean containsAny(Collection<T> collection1, Collection<T> collection2) {
+        return collection2.stream().anyMatch(collection1::contains);
     }
 
     protected abstract void onDead();

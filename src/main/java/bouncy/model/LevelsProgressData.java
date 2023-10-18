@@ -1,6 +1,6 @@
 package bouncy.model;
 
-import bouncy.FileUtils;
+import bouncy.util.FileUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

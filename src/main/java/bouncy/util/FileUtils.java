@@ -1,4 +1,4 @@
-package bouncy;
+package bouncy.util;
 
 import javafx.scene.image.Image;
 

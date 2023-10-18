@@ -1,6 +1,6 @@
 package bouncy.model;
 
-import bouncy.FileUtils;
+import bouncy.util.FileUtils;
 
 import java.nio.file.Paths;
 import java.util.HashMap;

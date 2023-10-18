@@ -1,6 +1,6 @@
 package bouncy.model;
 
-import bouncy.FileUtils;
+import bouncy.util.FileUtils;
 import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlElement;
