@@ -19,7 +19,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#onSave" text="Save" />
+      <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#onSave" styleClass="big-button" text="Save" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

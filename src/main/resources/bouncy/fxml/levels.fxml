@@ -10,8 +10,8 @@
    <children>
       <HBox alignment="TOP_RIGHT" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onReset" text="Reset" />
-            <Button mnemonicParsing="false" onAction="#onMenu" text="Menu" />
+            <Button mnemonicParsing="false" onAction="#onReset" styleClass="big-button" text="Reset" />
+            <Button mnemonicParsing="false" onAction="#onMenu" styleClass="big-button" text="Menu" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
