@@ -17,6 +17,10 @@ public class ViewUtils {
         return loadView("fxml/levels.fxml");
     }
 
+    public static Parent loadLevelEditor() {
+        return loadView("fxml/level_editor.fxml");
+    }
+
     public static Parent loadView(String fxml) {
         return loadWithController(fxml).getValue();
     }

@@ -17,7 +17,7 @@ public class MenuController {
 
     @FXML
     private void onLevelEditor() {
-        Parent parent = ViewUtils.loadView("fxml/level_editor.fxml");
+        Parent parent = ViewUtils.loadLevelEditor();
         root.getScene().setRoot(parent);
     }
 

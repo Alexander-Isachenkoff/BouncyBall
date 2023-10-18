@@ -44,6 +44,12 @@ public class LevelEditor {
         levelNameField.textProperty().addListener((observable, oldValue, newValue) -> level.getLevelData().setName(newValue));
 
         initGameObjectsList();
+
+        loadTemp();
+    }
+
+    public void loadTemp() {
+        level.initLevelData(LevelData.loadTemp());
     }
 
     private void loadLevelData(String fileName) {
@@ -137,7 +143,7 @@ public class LevelEditor {
     @FXML
     private void onStart() {
         level.getLevelData().saveTemp();
-        PlayingLevel playingLevel = new EditorLevel(LevelData::loadTemp);
+        PlayingLevel playingLevel = new PlayingLevelFromEditor(LevelData::loadTemp);
         Scene scene = level.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();
