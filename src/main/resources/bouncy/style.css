@@ -137,7 +137,11 @@
     -fx-padding: 0;
 }
 
-.level-button:disabled {
+.button:disabled {
     -fx-background-color: LIGHTGRAY;
     -fx-opacity: 1;
+}
+
+.button:disabled .text {
+    -fx-fill: #dadada;
 }

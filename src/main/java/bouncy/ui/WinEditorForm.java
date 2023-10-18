@@ -34,8 +34,14 @@ public class WinEditorForm extends FxmlForm {
     @FXML
     private void onSave() {
         this.getStage().close();
-        LevelData.loadTemp().save();
-        Main.toLevelEditor();
+        InputNameForm form = new InputNameForm();
+        form.setOnSave(s -> {
+            LevelData levelData = LevelData.loadTemp();
+            levelData.setName(s);
+            levelData.save();
+            Main.toLevelEditor();
+        });
+        form.show();
     }
 
 }
