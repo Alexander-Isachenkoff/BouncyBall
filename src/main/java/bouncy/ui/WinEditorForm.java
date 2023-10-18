@@ -1,17 +1,18 @@
 package bouncy.ui;
 
 import bouncy.Main;
+import bouncy.model.LevelData;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
-public class DefeatEditorForm extends FxmlForm {
+public class WinEditorForm extends FxmlForm {
 
     private final PlayingLevel level;
 
-    public DefeatEditorForm(PlayingLevel level) {
-        super("fxml/defeat_editor.fxml");
+    public WinEditorForm(PlayingLevel level) {
+        super("fxml/win_editor.fxml");
         this.level = level;
         getScene().setFill(Color.TRANSPARENT);
         this.getStage().initStyle(StageStyle.TRANSPARENT);
@@ -27,7 +28,14 @@ public class DefeatEditorForm extends FxmlForm {
     @FXML
     private void onEditor() {
         this.getStage().close();
-        Main.getStage().getScene().setRoot(ViewUtils.loadLevelEditor());
+        Main.toLevelEditor();
+    }
+
+    @FXML
+    private void onSave() {
+        this.getStage().close();
+        LevelData.loadTemp().save();
+        Main.toLevelEditor();
     }
 
 }

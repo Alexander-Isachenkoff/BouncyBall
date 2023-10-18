@@ -27,4 +27,8 @@ public class Main extends Application {
     public static Stage getStage() {
         return stage;
     }
+
+    public static void toLevelEditor() {
+        stage.getScene().setRoot(ViewUtils.loadLevelEditor());
+    }
 }
