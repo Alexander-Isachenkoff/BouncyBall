@@ -31,4 +31,9 @@ public class Main extends Application {
     public static void toLevelEditor() {
         stage.getScene().setRoot(ViewUtils.loadLevelEditor());
     }
+
+    public static void toMainMenu() {
+        stage.getScene().setRoot(ViewUtils.loadMenu());
+    }
+
 }

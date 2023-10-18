@@ -26,4 +26,10 @@ public class MenuController {
         root.getScene().getWindow().hide();
     }
 
+    @FXML
+    private void onUserLevels() {
+        Parent parent = ViewUtils.loadView("fxml/user_levels.fxml");
+        root.getScene().setRoot(parent);
+    }
+
 }
