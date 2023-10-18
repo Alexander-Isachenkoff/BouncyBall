@@ -27,7 +27,7 @@ public class DefeatEditorForm extends FxmlForm {
     @FXML
     private void onEditor() {
         this.getStage().close();
-        Main.getStage().getScene().setRoot(ViewUtils.loadLevelEditor());
+        Main.toTempLevelEditor();
     }
 
 }

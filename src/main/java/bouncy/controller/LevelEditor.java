@@ -1,6 +1,7 @@
 package bouncy.controller;
 
 import bouncy.AppProperties;
+import bouncy.Main;
 import bouncy.model.Categories;
 import bouncy.model.Category;
 import bouncy.model.GameObject;
@@ -45,14 +46,14 @@ public class LevelEditor {
 
         initGameObjectsList();
 
-        loadTemp();
+        //loadTemp();
     }
 
     public void loadTemp() {
         level.initLevelData(LevelData.loadTemp());
     }
 
-    private void loadLevelData(String fileName) {
+    public void loadLevelData(String fileName) {
         level.initLevelData(LevelData.load(fileName));
         levelNameField.setText(level.getLevelData().getName());
     }
@@ -180,4 +181,8 @@ public class LevelEditor {
         stage.show();
     }
 
+    @FXML
+    private void onMenu() {
+        Main.toMainMenu();
+    }
 }

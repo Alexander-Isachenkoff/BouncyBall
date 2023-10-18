@@ -1,6 +1,7 @@
 package bouncy.ui;
 
 import bouncy.Main;
+import bouncy.controller.LevelEditor;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.util.Pair;
@@ -17,11 +18,15 @@ public class ViewUtils {
         return loadView("fxml/levels.fxml");
     }
 
-    public static Parent loadLevelEditor() {
-        return loadView("fxml/level_editor.fxml");
+    public static Parent loadUserLevels() {
+        return loadView("fxml/user_levels.fxml");
     }
 
-    public static Parent loadView(String fxml) {
+    public static Pair<LevelEditor, Parent> loadLevelEditor() {
+        return loadWithController("fxml/level_editor.fxml");
+    }
+
+    private static Parent loadView(String fxml) {
         return loadWithController(fxml).getValue();
     }
 

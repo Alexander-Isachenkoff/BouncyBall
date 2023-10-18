@@ -2,13 +2,16 @@ package bouncy.controller;
 
 import bouncy.model.LevelData;
 import bouncy.ui.UserLevel;
+import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.util.Pair;
 
 public class LevelListCell extends HBox {
 
@@ -40,7 +43,10 @@ public class LevelListCell extends HBox {
 
     @FXML
     private void onEdit() {
-
+        Pair<LevelEditor, Parent> load = ViewUtils.loadLevelEditor();
+        LevelEditor levelEditor = load.getKey();
+        levelEditor.loadLevelData(levelPath);
+        getScene().setRoot(load.getValue());
     }
 
     @FXML

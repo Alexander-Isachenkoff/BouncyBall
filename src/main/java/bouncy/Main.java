@@ -1,10 +1,12 @@
 package bouncy;
 
+import bouncy.controller.LevelEditor;
 import bouncy.ui.ViewUtils;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class Main extends Application {
 
@@ -12,6 +14,21 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void toTempLevelEditor() {
+        Pair<LevelEditor, Parent> load = ViewUtils.loadLevelEditor();
+        LevelEditor levelEditor = load.getKey();
+        levelEditor.loadTemp();
+        stage.getScene().setRoot(load.getValue());
+    }
+
+    public static void toMainMenu() {
+        stage.getScene().setRoot(ViewUtils.loadMenu());
     }
 
     @Override
@@ -22,18 +39,6 @@ public class Main extends Application {
         stage.setWidth(1024);
         stage.setHeight(600);
         stage.show();
-    }
-
-    public static Stage getStage() {
-        return stage;
-    }
-
-    public static void toLevelEditor() {
-        stage.getScene().setRoot(ViewUtils.loadLevelEditor());
-    }
-
-    public static void toMainMenu() {
-        stage.getScene().setRoot(ViewUtils.loadMenu());
     }
 
 }

@@ -1,5 +1,6 @@
 package bouncy.controller;
 
+import bouncy.Main;
 import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,8 +18,7 @@ public class MenuController {
 
     @FXML
     private void onLevelEditor() {
-        Parent parent = ViewUtils.loadLevelEditor();
-        root.getScene().setRoot(parent);
+        Main.toTempLevelEditor();
     }
 
     @FXML
@@ -28,7 +28,7 @@ public class MenuController {
 
     @FXML
     private void onUserLevels() {
-        Parent parent = ViewUtils.loadView("fxml/user_levels.fxml");
+        Parent parent = ViewUtils.loadUserLevels();
         root.getScene().setRoot(parent);
     }
 

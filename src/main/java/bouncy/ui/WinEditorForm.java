@@ -28,7 +28,7 @@ public class WinEditorForm extends FxmlForm {
     @FXML
     private void onEditor() {
         this.getStage().close();
-        Main.toLevelEditor();
+        Main.toTempLevelEditor();
     }
 
     @FXML
@@ -39,7 +39,7 @@ public class WinEditorForm extends FxmlForm {
             LevelData levelData = LevelData.loadTemp();
             levelData.setName(s);
             levelData.save();
-            Main.toLevelEditor();
+            Main.toTempLevelEditor();
         });
         form.show();
     }
