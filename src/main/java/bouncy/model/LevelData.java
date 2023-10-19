@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LevelData {
 
-    public static final String USER_LEVELS_DIR = "data/user_levels/";
+    public static final String USER_LEVELS_DIR = "data/user_levels/temp/";
     public static final String TEMP_FILE_NAME = "temp.xml";
 
     @XmlElementWrapper(name = "objects")

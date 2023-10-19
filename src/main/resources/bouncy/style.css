@@ -160,19 +160,19 @@
     -fx-fill: #dadada;
 }
 
-.level-cell .label .text {
-    -fx-font-size: 14;
-}
-
-.level-cell .button {
-    visibility: hidden;
-}
-
 .level-cell:hover .button {
     visibility: visible;
 }
 
-.level-cell {
+.level-cell .label .text {
+    -fx-font-size: 14;
+}
+
+.level-cell .button, .level-cell .level {
+    visibility: hidden;
+}
+
+.level-image {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
     -fx-background-radius: 10;
@@ -180,5 +180,5 @@
 }
 
 .level-cell:hover {
-    -fx-background-color: LIGHTGRAY;
+    //-fx-background-color: LIGHTGRAY;
 }
