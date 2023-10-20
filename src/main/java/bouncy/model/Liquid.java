@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 @Getter
 public class Liquid extends GameObject {
 
+    @XmlTransient
     private double stateTime;
 
     @XmlTransient

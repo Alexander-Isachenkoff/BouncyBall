@@ -7,7 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+
+import java.io.File;
 
 public class CustomLevelCell extends LevelCell {
 
@@ -38,7 +41,9 @@ public class CustomLevelCell extends LevelCell {
     }
 
     private void onDelete() {
-
+        if (new File(getLevelPath()).delete()) {
+            ((Pane) getParent()).getChildren().remove(this);
+        }
     }
 
 }
