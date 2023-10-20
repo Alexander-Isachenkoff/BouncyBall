@@ -71,7 +71,7 @@ public class LevelData {
     @SuppressWarnings("unchecked")
     public <T extends GameObject> List<T> getObjects(Class<T> tClass) {
         return gameObjects.stream()
-                .filter(gameObject -> gameObject.getClass() == tClass)
+                .filter(tClass::isInstance)
                 .map(gameObject -> (T) gameObject)
                 .collect(Collectors.toList());
     }
@@ -79,7 +79,7 @@ public class LevelData {
     @SuppressWarnings("unchecked")
     public <T extends GameObject> T getObject(Class<T> tClass) {
         return gameObjects.stream()
-                .filter(gameObject -> gameObject.getClass() == tClass)
+                .filter(tClass::isInstance)
                 .map(gameObject -> (T) gameObject)
                 .findFirst()
                 .get();
