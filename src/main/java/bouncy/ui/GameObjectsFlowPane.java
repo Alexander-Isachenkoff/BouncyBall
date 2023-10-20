@@ -18,17 +18,26 @@ public class GameObjectsFlowPane extends FlowPane {
     public GameObjectsFlowPane(ToggleGroup toggleGroup, Category category, double imageSize) {
         this.toggleGroup = toggleGroup;
         getStyleClass().add("gameObjectsFlowPane");
-        List<String> fileNames = FileUtils.getPackFileNames(category.getPack());
-        for (String fileName : fileNames) {
-            try {
-                Class<?> aClass = Class.forName("bouncy.model." + category.getClassName());
-                GameObject gameObject = (GameObject) aClass.newInstance();
+
+        if (!category.getGameObjects().isEmpty()) {
+            for (GameObject gameObject : category.getGameObjects()) {
                 gameObject.setWidth(imageSize);
                 gameObject.setHeight(imageSize);
-                gameObject.setImagePath(new File(category.getPack(), fileName).getPath());
                 addGameObjectToList(this, gameObject);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                throw new RuntimeException(e);
+            }
+        } else {
+            List<String> fileNames = FileUtils.getPackFileNames(category.getPack());
+            for (String fileName : fileNames) {
+                try {
+                    Class<?> aClass = Class.forName("bouncy.model." + category.getClassName());
+                    GameObject gameObject = (GameObject) aClass.newInstance();
+                    gameObject.setWidth(imageSize);
+                    gameObject.setHeight(imageSize);
+                    gameObject.setImagePath(new File(category.getPack(), fileName).getPath());
+                    addGameObjectToList(this, gameObject);
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

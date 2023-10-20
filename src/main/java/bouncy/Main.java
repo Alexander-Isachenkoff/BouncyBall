@@ -23,7 +23,7 @@ public class Main extends Application {
     public static void toTempLevelEditor() {
         Pair<LevelEditor, Parent> load = ViewUtils.loadLevelEditor();
         LevelEditor levelEditor = load.getKey();
-        levelEditor.loadTemp();
+        levelEditor.loadTempIfExists();
         stage.getScene().setRoot(load.getValue());
     }
 

@@ -17,4 +17,20 @@
     <category name="Box" className="Block" imagePath="images/box/box.png" pack="images/box"/>
     <category name="Liquid" className="Liquid" imagePath="images/liquid/liquidWaterTop_mid.png" pack="images/liquid"/>
     <category name="Decor" className="Decor" imagePath="images/decor/signExit.png" pack="images/decor"/>
+    <category name="Locks" imagePath="images/locks/lock_yellow.png">
+        <objects>
+            <lock lockType="YELLOW" imagePath="images\locks\lock_yellow.png"/>
+            <lock lockType="RED"    imagePath="images\locks\lock_red.png"/>
+            <lock lockType="BLUE"   imagePath="images\locks\lock_blue.png"/>
+            <lock lockType="GREEN"  imagePath="images\locks\lock_green.png"/>
+        </objects>
+    </category>
+    <category name="Keys" imagePath="images/keys/keyYellow.png">
+        <objects>
+            <key lockType="YELLOW"  imagePath="images\keys\keyYellow.png"/>
+            <key lockType="GREEN"   imagePath="images\keys\keyGreen.png"/>
+            <key lockType="RED"     imagePath="images\keys\keyRed.png"/>
+            <key lockType="BLUE"    imagePath="images\keys\keyBlue.png"/>
+        </objects>
+    </category>
 </categories>

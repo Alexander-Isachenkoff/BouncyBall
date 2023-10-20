@@ -47,7 +47,13 @@ public class LevelEditor {
         initGameObjectsList();
     }
 
-    public void loadTemp() {
+    public void loadTempIfExists() {
+        if (new File(LevelData.getTempFileName()).exists()) {
+            loadTemp();
+        }
+    }
+
+    private void loadTemp() {
         level.load(LevelData.getTempFileName());
     }
 
@@ -106,32 +112,31 @@ public class LevelEditor {
     private Node createCategoryPane(Category category) {
         if (category.getCategories().isEmpty()) {
             return new GameObjectsFlowPane(toggleGroup, category, OBJECTS_PANE_IMAGE_SIZE);
-        } else {
-            ListView<Category> subCategoriesList = new ListView<>();
-            subCategoriesList.getStyleClass().add("subcategories-list");
-            subCategoriesList.getItems().setAll(category.getCategories());
-            subCategoriesList.setCellFactory(param -> new ListCell<Category>() {
-                @Override
-                protected void updateItem(Category item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (!empty) {
-                        ImageView imageView = new ImageView(ImageManager.getImage(item.getImagePath()));
-                        imageView.setFitWidth(25);
-                        imageView.setFitHeight(25);
-                        setGraphic(imageView);
-                    } else {
-                        setGraphic(null);
-                    }
-                }
-            });
-            HBox vBox = new HBox(subCategoriesList, new VBox());
-            subCategoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                FlowPane pane = new GameObjectsFlowPane(toggleGroup, newValue, OBJECTS_PANE_IMAGE_SIZE);
-                vBox.getChildren().set(1, pane);
-            });
-            subCategoriesList.getSelectionModel().select(0);
-            return vBox;
         }
+        ListView<Category> subCategoriesList = new ListView<>();
+        subCategoriesList.getStyleClass().add("subcategories-list");
+        subCategoriesList.getItems().setAll(category.getCategories());
+        subCategoriesList.setCellFactory(param -> new ListCell<Category>() {
+            @Override
+            protected void updateItem(Category item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    ImageView imageView = new ImageView(ImageManager.getImage(item.getImagePath()));
+                    imageView.setFitWidth(25);
+                    imageView.setFitHeight(25);
+                    setGraphic(imageView);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
+        HBox vBox = new HBox(subCategoriesList, new VBox());
+        subCategoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            FlowPane pane = new GameObjectsFlowPane(toggleGroup, newValue, OBJECTS_PANE_IMAGE_SIZE);
+            vBox.getChildren().set(1, pane);
+        });
+        subCategoriesList.getSelectionModel().select(0);
+        return vBox;
     }
 
     @FXML

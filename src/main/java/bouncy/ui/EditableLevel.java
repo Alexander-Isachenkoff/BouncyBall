@@ -60,11 +60,7 @@ public class EditableLevel extends Level {
             GameObject selectedItem = gameObjectFactory.get();
             if (selectedItem != null) {
                 GameObject gameObject;
-                try {
-                    gameObject = selectedItem.getClass().newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
+                gameObject = selectedItem.clone();
                 gameObject.setX(x);
                 gameObject.setY(y);
                 gameObject.setWidth(this.gridSize);

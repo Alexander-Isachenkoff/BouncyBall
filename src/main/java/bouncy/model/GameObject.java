@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class GameObject {
+public abstract class GameObject implements Cloneable {
 
     @XmlAttribute
     private double x;
@@ -134,4 +134,13 @@ public abstract class GameObject {
     public void affectPlayer(Player player) {
     }
 
+    @Override
+    public GameObject clone() {
+        try {
+            GameObject clone = (GameObject) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

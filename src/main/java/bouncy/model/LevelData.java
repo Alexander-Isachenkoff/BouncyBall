@@ -26,6 +26,8 @@ public class LevelData {
             @XmlElement(name = "spikes", type = Spikes.class),
             @XmlElement(name = "liquid", type = Liquid.class),
             @XmlElement(name = "decor", type = Decor.class),
+            @XmlElement(name = "key", type = Key.class),
+            @XmlElement(name = "lock", type = Lock.class),
     })
 
     @Getter
