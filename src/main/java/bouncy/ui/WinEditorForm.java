@@ -38,7 +38,7 @@ public class WinEditorForm extends FxmlForm {
         form.setOnSave(s -> {
             LevelData levelData = LevelData.loadTemp();
             levelData.setName(s);
-            levelData.save();
+            levelData.saveCustom();
             Main.toTempLevelEditor();
         });
         form.show();

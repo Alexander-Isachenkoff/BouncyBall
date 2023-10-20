@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LevelData {
 
-    public static final String USER_LEVELS_DIR = "data/user_levels/temp/";
-    public static final String TEMP_FILE_NAME = "temp.xml";
+    private static final String CUSTOM_LEVELS_DIR = "data/user_levels/";
+    private static final String TEMP_FILE_NAME = "data/user_levels/temp/temp.xml";
 
     @XmlElementWrapper(name = "objects")
     @XmlElements({
@@ -50,7 +50,7 @@ public class LevelData {
     }
 
     public static String getTempFileName() {
-        return USER_LEVELS_DIR + TEMP_FILE_NAME;
+        return TEMP_FILE_NAME;
     }
 
     public void add(GameObject object) {
@@ -90,16 +90,16 @@ public class LevelData {
     }
 
     public void saveTemp() {
-        save(TEMP_FILE_NAME);
+        FileUtils.saveXmlObject(this, TEMP_FILE_NAME);
     }
 
-    public void save() {
+    public void saveCustom() {
         String fileName = name + ".xml";
-        save(fileName);
+        saveCustom(fileName);
     }
 
-    private void save(String fileName) {
-        FileUtils.saveXmlObject(this, USER_LEVELS_DIR + fileName);
+    private void saveCustom(String fileName) {
+        FileUtils.saveXmlObject(this, CUSTOM_LEVELS_DIR + fileName);
     }
 
 }

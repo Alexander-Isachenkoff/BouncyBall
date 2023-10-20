@@ -136,7 +136,7 @@ public class LevelEditor {
 
     @FXML
     private void onSave() {
-        level.getLevelData().save();
+        level.getLevelData().saveCustom();
     }
 
     @FXML
