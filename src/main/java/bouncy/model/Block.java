@@ -8,10 +8,6 @@ import javax.xml.bind.annotation.XmlType;
 @NoArgsConstructor
 public class Block extends GameObject {
 
-    public Block(String imagePath, double width, double height) {
-        super(imagePath, width, height);
-    }
-
     @Override
     public void affectPlayer(Player player) {
         if (intersects(player)) {

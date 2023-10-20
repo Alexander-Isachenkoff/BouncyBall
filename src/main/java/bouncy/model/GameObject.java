@@ -48,12 +48,6 @@ public abstract class GameObject {
     @Getter
     private LevelData levelData;
 
-    protected GameObject(String imagePath, double width, double height) {
-        setWidth(width);
-        setHeight(height);
-        setImagePath(imagePath);
-    }
-
     @XmlAttribute
     public String getImagePath() {
         return imageData.getImagePath();

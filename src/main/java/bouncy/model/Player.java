@@ -29,10 +29,6 @@ public class Player extends MovingGameObject {
     @XmlTransient
     private boolean isDead = false;
 
-    public Player(String imagePath, double width, double height) {
-        super(imagePath, width, height);
-    }
-
     @Override
     public void move(double seconds) {
         this.setVSpeed(this.getVSpeed() + GRAVITY * seconds);
