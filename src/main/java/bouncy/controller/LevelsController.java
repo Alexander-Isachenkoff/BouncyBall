@@ -2,50 +2,35 @@ package bouncy.controller;
 
 import bouncy.model.LevelProgressData;
 import bouncy.model.LevelsProgressData;
-import bouncy.ui.CampaignLevel;
-import bouncy.ui.PlayingLevel;
+import bouncy.ui.CampaignLevelCell;
+import bouncy.ui.LevelsFlowPane;
 import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.layout.FlowPane;
-import javafx.util.Pair;
+import javafx.scene.control.ScrollPane;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LevelsController {
 
+    private final LevelsFlowPane levelsPane = new LevelsFlowPane();
     @FXML
-    private FlowPane levelsPane;
+    private ScrollPane scrollPane;
 
     @FXML
     private void initialize() {
+        scrollPane.setContent(levelsPane);
         reload();
     }
 
     private void reload() {
-        levelsPane.getChildren().clear();
-
-        List<LevelProgressData> levelProgressDataList = LevelsProgressData.load().getLevelProgressData();
-        levelProgressDataList.sort(Comparator.comparingInt(LevelProgressData::getIndex));
-        for (int i = 0; i < levelProgressDataList.size(); i++) {
-            boolean isAvailable = (i == 0) || levelProgressDataList.get(i - 1).isDone();
-            Node button = createLevelButton(levelProgressDataList.get(i), isAvailable);
-            levelsPane.getChildren().add(button);
-        }
-    }
-
-    private Node createLevelButton(LevelProgressData levelProgressData, boolean isAvailable) {
-        Pair<LevelIconController, Parent> load = ViewUtils.loadWithController("fxml/level_icon.fxml");
-        LevelIconController controller = load.getKey();
-        controller.init(levelProgressData, isAvailable);
-        controller.setOnClick(() -> {
-            PlayingLevel playingLevel = new CampaignLevel(levelProgressData);
-            levelsPane.getScene().setRoot(playingLevel);
-            playingLevel.start();
-        });
-        return load.getValue();
+        LevelsProgressData levelsProgressData = LevelsProgressData.load();
+        List<String> fileNames = levelsProgressData.getLevelProgressData().stream()
+                .sorted(Comparator.comparingInt(LevelProgressData::getIndex))
+                .map(LevelProgressData::getFileName)
+                .collect(Collectors.toList());
+        levelsPane.loadLevels(fileNames, CampaignLevelCell::new);
     }
 
     @FXML

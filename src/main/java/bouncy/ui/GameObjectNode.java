@@ -33,8 +33,8 @@ public class GameObjectNode extends Region {
         colliderRectangle.setFill(Color.TRANSPARENT);
         getChildren().add(colliderRectangle);
 
-        setColliderVisible(AppProperties.collidersProperty.get());
-        AppProperties.collidersProperty.addListener((observable, oldValue, newValue) -> setColliderVisible(newValue));
+        setColliderVisible(AppProperties.getCollidersProperty().get());
+        AppProperties.getCollidersProperty().addListener((observable, oldValue, newValue) -> setColliderVisible(newValue));
 
         image = ImageManager.getImage(gameObject.getImageData().getImagePath());
         updateBackground();

@@ -1,7 +1,7 @@
 package bouncy.controller;
 
 import bouncy.Main;
-import bouncy.ui.UserLevels;
+import bouncy.ui.CustomLevels;
 import bouncy.ui.ViewUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -29,7 +29,7 @@ public class MenuController {
 
     @FXML
     private void onUserLevels() {
-        root.getScene().setRoot(new UserLevels());
+        root.getScene().setRoot(new CustomLevels());
     }
 
 }

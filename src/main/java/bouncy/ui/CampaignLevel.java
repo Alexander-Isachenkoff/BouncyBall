@@ -2,7 +2,6 @@ package bouncy.ui;
 
 import bouncy.controller.DefeatController;
 import bouncy.controller.WinController;
-import bouncy.model.LevelData;
 import bouncy.model.LevelProgressData;
 import bouncy.model.LevelsProgressData;
 import javafx.application.Platform;
@@ -18,9 +17,9 @@ public class CampaignLevel extends PlayingLevel {
 
     private final LevelProgressData levelProgressData;
 
-    public CampaignLevel(LevelProgressData levelProgressData) {
-        super(() -> LevelData.load(levelProgressData.getFileName()));
-        this.levelProgressData = levelProgressData;
+    public CampaignLevel(String levelPath) {
+        super(levelPath);
+        this.levelProgressData = LevelsProgressData.load().get(levelPath);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class CampaignLevel extends PlayingLevel {
             });
             controller.setOnNext(() -> {
                 load.getValue().getScene().getWindow().hide();
-                PlayingLevel playingLevel = new CampaignLevel(progressData.get(levelProgressData.getIndex() + 1));
+                PlayingLevel playingLevel = new CampaignLevel(progressData.get(levelProgressData.getIndex() + 1).getFileName());
                 this.getScene().setRoot(playingLevel);
                 playingLevel.start();
             });

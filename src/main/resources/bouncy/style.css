@@ -22,22 +22,31 @@
     -fx-background-insets: 0, 1, 2;
 }
 
-.button:hover, categories-list-view .list-cell:hover {
-    -fx-background-color: deepskyblue;
-}
-
 .button {
-    -fx-background-color: lightskyblue;
-    -fx-background-insets: 0;
     -fx-cursor: HAND;
-    -fx-background-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, #9AB, 0, 0, 0, 5);
 }
 
 .button .text {
     -fx-fill: white;
-    -fx-cursor: HAND;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
+}
+
+.big-button:hover, .mini-button:hover, categories-list-view .list-cell:hover {
+    -fx-background-color: deepskyblue;
+}
+
+.big-button, .mini-button {
+    -fx-background-color: lightskyblue;
+    -fx-background-insets: 0;
+    -fx-background-radius: 30;
+}
+
+.big-button {
+    -fx-effect: dropshadow(three-pass-box, #9AB, 0, 0, 0, 5);
+}
+
+.mini-button {
+    -fx-effect: dropshadow(three-pass-box, #9AB, 0, 0, 0, 3);
 }
 
 .big-button {
@@ -59,7 +68,14 @@
 
 .button:pressed {
     -fx-effect: none;
+}
+
+.big-button:pressed {
     -fx-translate-y: 5;
+}
+
+.mini-button:pressed {
+    -fx-translate-y: 3;
 }
 
 .gameObjectsFlowPane {
@@ -140,17 +156,6 @@
     -fx-background-color: LIGHTSKYBLUE;
 }
 
-.level-button {
-    -fx-background-color: #70eb30;
-    -fx-background-radius: 4;
-    -fx-border-radius: 4;
-    -fx-border-width: 0.5;
-    -fx-border-color: #9AB;
-    -fx-pref-width: 35;
-    -fx-pref-height: 35;
-    -fx-padding: 0;
-}
-
 .button:disabled {
     -fx-background-color: LIGHTGRAY;
     -fx-opacity: 1;
@@ -180,5 +185,16 @@
 }
 
 .level-cell:hover {
-    //-fx-background-color: LIGHTGRAY;
+    -fx-background-color: #FAFAFA;
+}
+
+.level-button {
+    -fx-background-color: rgba(0,0,0,0.15);
+    -fx-background-radius: 10;
+}
+
+.levels-flow-pane {
+    -fx-hgap: 15;
+    -fx-vgap: 15;
+    -fx-padding: 15;
 }

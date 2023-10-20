@@ -33,6 +33,13 @@ public class LevelsProgressData {
                 .get();
     }
 
+    public LevelProgressData get(String levelPath) {
+        return this.getLevelProgressData().stream()
+                .filter(levelProgressData -> levelProgressData.getFileName().equals(levelPath))
+                .findFirst()
+                .get();
+    }
+
     public void save() {
         FileUtils.saveXmlObject(this, LEVELS_PROGRESS_FILENAME);
     }

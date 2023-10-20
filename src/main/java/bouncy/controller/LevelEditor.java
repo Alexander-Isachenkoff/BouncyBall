@@ -37,7 +37,7 @@ public class LevelEditor {
 
     @FXML
     private void initialize() {
-        collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.collidersProperty);
+        collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.getCollidersProperty());
         level.setGameObjectFactory(this::getSelectedGameObject);
 
         level.getLevelData().setName("New Level");
@@ -45,16 +45,14 @@ public class LevelEditor {
         levelNameField.textProperty().addListener((observable, oldValue, newValue) -> level.getLevelData().setName(newValue));
 
         initGameObjectsList();
-
-        //loadTemp();
     }
 
     public void loadTemp() {
-        level.initLevelData(LevelData.loadTemp());
+        level.load(LevelData.getTempFileName());
     }
 
     public void loadLevelData(String fileName) {
-        level.initLevelData(LevelData.load(fileName));
+        level.load(fileName);
         levelNameField.setText(level.getLevelData().getName());
     }
 
@@ -144,7 +142,7 @@ public class LevelEditor {
     @FXML
     private void onStart() {
         level.getLevelData().saveTemp();
-        PlayingLevel playingLevel = new PlayingLevelFromEditor(LevelData::loadTemp);
+        PlayingLevel playingLevel = new PlayingLevelFromEditor(LevelData.getTempFileName());
         Scene scene = level.getScene();
         scene.setRoot(playingLevel);
         playingLevel.start();

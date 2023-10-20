@@ -10,21 +10,32 @@ public class Level extends Pane {
 
     @Getter
     private final LevelData levelData = new LevelData();
+    private String levelPath;
 
     public Level() {
         this.levelData.setRemoveListener(this::removeNodeByGameObject);
     }
 
-    public Level(LevelData levelData) {
+    public Level(String levelPath) {
         this();
-        this.initLevelData(levelData);
+        this.levelPath = levelPath;
+        reload();
+    }
+
+    public void load(String levelPath) {
+        this.levelPath = levelPath;
+        reload();
+    }
+
+    public void reload() {
+        this.initLevelData(LevelData.load(levelPath));
     }
 
     public void clear() {
         getLevelData().clear();
     }
 
-    public void initLevelData(LevelData levelData) {
+    private void initLevelData(LevelData levelData) {
         this.clear();
         for (GameObject gameObject : levelData.getGameObjects()) {
             this.add(gameObject);

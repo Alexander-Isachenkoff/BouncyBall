@@ -46,7 +46,11 @@ public class LevelData {
     }
 
     public static LevelData loadTemp() {
-        return load(USER_LEVELS_DIR + TEMP_FILE_NAME);
+        return load(getTempFileName());
+    }
+
+    public static String getTempFileName() {
+        return USER_LEVELS_DIR + TEMP_FILE_NAME;
     }
 
     public void add(GameObject object) {

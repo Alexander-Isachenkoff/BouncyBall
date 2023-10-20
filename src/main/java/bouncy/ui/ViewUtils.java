@@ -18,10 +18,6 @@ public class ViewUtils {
         return loadView("fxml/levels.fxml");
     }
 
-    public static Parent loadUserLevels() {
-        return loadView("fxml/user_levels.fxml");
-    }
-
     public static Pair<LevelEditor, Parent> loadLevelEditor() {
         return loadWithController("fxml/level_editor.fxml");
     }
