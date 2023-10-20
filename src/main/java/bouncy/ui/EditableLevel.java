@@ -65,7 +65,6 @@ public class EditableLevel extends Level {
                 gameObject.setY(y);
                 gameObject.setWidth(this.gridSize);
                 gameObject.setHeight(this.gridSize);
-                gameObject.setImagePath(selectedItem.getImagePath());
                 add(gameObject);
             }
         });
