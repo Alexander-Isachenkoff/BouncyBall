@@ -184,8 +184,16 @@
     -fx-padding: 8;
 }
 
-.level-cell:hover {
-    -fx-background-color: #FAFAFA;
+.level-cell:hover .done-label {
+    visibility: hidden;
+}
+
+.level-cell:disabled {
+    -fx-opacity: 0.5;
+}
+
+.level-image:disabled {
+    -fx-background-color: LIGHTGRAY;
 }
 
 .level-button {
@@ -197,4 +205,15 @@
     -fx-hgap: 15;
     -fx-vgap: 15;
     -fx-padding: 15;
+}
+
+.done-label {
+    -fx-alignment: CENTER;
+}
+
+.level-cell .done-label .text {
+    -fx-fill: LAWNGREEN;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
 }
