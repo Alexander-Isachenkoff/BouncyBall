@@ -14,6 +14,7 @@
     <category name="Spikes" className="Spikes" imagePath="images/spikes/spikesBottom.png" pack="images/spikes"/>
     <category name="Balls" className="Player" imagePath="images/balls/foot-ball.png" pack="images/balls"/>
     <category name="Other" className="Star" imagePath="images/other/star.png" pack="images/other"/>
+    <category name="Box" className="Block" imagePath="images/box/box.png" pack="images/box"/>
     <category name="Liquid" className="Liquid" imagePath="images/liquid/liquidWaterTop_mid.png" pack="images/liquid"/>
     <category name="Decor" className="Decor" imagePath="images/decor/signExit.png" pack="images/decor"/>
 </categories>
