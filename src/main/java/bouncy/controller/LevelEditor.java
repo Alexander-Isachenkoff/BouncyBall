@@ -140,16 +140,11 @@ public class LevelEditor {
     }
 
     @FXML
-    private void onSave() {
-        level.getLevelData().saveCustom();
-    }
-
-    @FXML
     private void onStart() {
         level.getLevelData().saveTemp();
         PlayingLevel playingLevel = new PlayingLevelFromEditor(LevelData.getTempFileName());
         Scene scene = level.getScene();
-        scene.setRoot(playingLevel);
+        scene.setRoot(new PlayingLevelPane(playingLevel, Main::toTempLevelEditor));
         playingLevel.start();
     }
 

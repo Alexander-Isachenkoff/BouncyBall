@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <levelsProgressData>
-    <levelProgressData index="1" done="false" fileName="data/levels/level 1.xml"/>
-    <levelProgressData index="2" done="false" fileName="data/levels/level 2.xml"/>
+    <levelProgressData index="1" done="true" fileName="data/levels/level 1.xml"/>
+    <levelProgressData index="2" done="true" fileName="data/levels/level 2.xml"/>
     <levelProgressData index="3" done="false" fileName="data/levels/level 3.xml"/>
 </levelsProgressData>

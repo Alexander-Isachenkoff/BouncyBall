@@ -60,7 +60,7 @@ public abstract class LevelCell extends AnchorPane {
     @FXML
     private void onPlay() {
         PlayingLevel level = createLevel(levelPath);
-        getScene().setRoot(level);
+        getScene().setRoot(new PlayingLevelPane(level));
         level.start();
     }
 

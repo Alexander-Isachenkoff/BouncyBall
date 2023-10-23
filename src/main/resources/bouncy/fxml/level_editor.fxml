@@ -49,7 +49,6 @@
                        <children>
                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClear" styleClass="big-button" text="Clear" />
                            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onStart" styleClass="big-button" text="Start" />
-                           <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSave" styleClass="big-button" text="Save" />
                        </children>
                        <padding>
                            <Insets bottom="15.0" left="10.0" right="10.0" top="10.0" />

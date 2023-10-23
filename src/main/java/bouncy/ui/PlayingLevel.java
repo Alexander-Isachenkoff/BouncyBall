@@ -6,30 +6,25 @@ import bouncy.model.Player;
 import bouncy.model.Star;
 import bouncy.util.Sets;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class PlayingLevel extends Level {
 
     private final Set<KeyCode> keysPressed = new HashSet<>();
-    private final Label fpsLabel = new Label();
     private final int delay = Math.round(1000 / 120f);
     private final Set<KeyCode> leftKeys = Sets.of(KeyCode.A, KeyCode.LEFT);
     private final Set<KeyCode> rightKeys = Sets.of(KeyCode.D, KeyCode.RIGHT);
-    private Timer timer;
+    private Thread timer;
     private long lastUpdate;
     private double dtSeconds;
     private double totalSeconds;
 
     public PlayingLevel(String levelPath) {
         super(levelPath);
-        Button button = new Button("restart");
-        button.setOnAction(event -> restart());
-        getChildren().add(new HBox(5, fpsLabel, button));
         setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
@@ -45,21 +40,36 @@ public abstract class PlayingLevel extends Level {
     public void start() {
         requestFocus();
         lastUpdate = System.currentTimeMillis();
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+        timer = new Thread(() -> {
+            while (true) {
                 update();
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    return;
+                }
             }
-        }, 0, delay);
+        });
+        timer.setDaemon(true);
+        timer.start();
+    }
+
+    void restart() {
+        stop();
+        keysPressed.clear();
+        reload();
+        start();
+    }
+
+    public void stop() {
+        timer.interrupt();
     }
 
     private void update() {
-        requestFocus();
+        Platform.runLater(this::requestFocus);
         long dtMills = System.currentTimeMillis() - lastUpdate;
         dtSeconds = dtMills / 1000.0;
         totalSeconds += dtSeconds;
-        Platform.runLater(() -> fpsLabel.setText("FPS: " + Math.round(1 / dtSeconds)));
         lastUpdate = System.currentTimeMillis();
         processBall();
 
@@ -85,13 +95,13 @@ public abstract class PlayingLevel extends Level {
         }
 
         if (isWin()) {
-            timer.cancel();
             onWin();
+            stop();
         }
 
         if (player.isDead()) {
-            timer.cancel();
             onDead();
+            stop();
         }
     }
 
@@ -101,12 +111,6 @@ public abstract class PlayingLevel extends Level {
 
     private boolean isWin() {
         return getLevelData().getObjects(Star.class).isEmpty();
-    }
-
-    void restart() {
-        keysPressed.clear();
-        reload();
-        start();
     }
 
 }
