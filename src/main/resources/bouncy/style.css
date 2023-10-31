@@ -217,3 +217,8 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,1), 2, 0, 0, 0);
 }
+
+.gameObjectNode:selected {
+    -fx-border-color: LIMEGREEN;
+    -fx-border-width: 2;
+}

@@ -48,6 +48,8 @@ public class GameObjectNode extends Region {
         if (gameObject instanceof Liquid) {
             ((Liquid) gameObject).setOnStateTimeChanged(aDouble -> updateBackground());
         }
+
+        this.getStyleClass().add("gameObjectNode");
     }
 
     private void updateBackground() {

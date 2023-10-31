@@ -28,6 +28,7 @@ public class LevelData {
             @XmlElement(name = "decor", type = Decor.class),
             @XmlElement(name = "key", type = Key.class),
             @XmlElement(name = "lock", type = Lock.class),
+            @XmlElement(name = "motionPoint", type = MotionPoint.class),
     })
 
     @Getter
@@ -92,6 +93,7 @@ public class LevelData {
     }
 
     public void saveTemp() {
+        this.getObjects(MotionPoint.class).forEach(this::remove);
         FileUtils.saveXmlObject(this, TEMP_FILE_NAME);
     }
 

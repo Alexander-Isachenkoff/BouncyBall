@@ -64,4 +64,13 @@ public class Level extends Pane {
                 .ifPresent(node -> Platform.runLater(() -> getChildren().remove(node)));
     }
 
+    public GameObjectNode getNode(GameObject gameObject) {
+        return getChildren().stream()
+                .filter(node -> node instanceof GameObjectNode)
+                .map(node -> (GameObjectNode) node)
+                .filter(node -> node.getGameObject() == gameObject)
+                .findFirst()
+                .get();
+    }
+
 }

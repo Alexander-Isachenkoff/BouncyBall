@@ -25,6 +25,10 @@ public abstract class GameObject implements Cloneable {
     @XmlTransient
     private double angle;
 
+    private MotionPath motionPath;
+    @XmlTransient
+    private boolean forwardMotion = true;
+
     @XmlTransient
     private ImageData imageData;
 

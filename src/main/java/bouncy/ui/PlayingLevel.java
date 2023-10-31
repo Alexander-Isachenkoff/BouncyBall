@@ -73,6 +73,45 @@ public abstract class PlayingLevel extends Level {
         lastUpdate = System.currentTimeMillis();
         processBall();
 
+        for (GameObject object : getLevelData().getGameObjects()) {
+            if (object.getMotionPath() != null) {
+                if (object.isForwardMotion()) {
+                    double dx = object.getMotionPath().getEndX() - object.getX();
+                    double dy = object.getMotionPath().getEndY() - object.getY();
+                    double dist = Math.sqrt(dx * dx + dy * dy);
+                    object.addX(100 * dtSeconds * dx / dist);
+                    object.addY(100 * dtSeconds * dy / dist);
+                    if (dx > 0) {
+                        if (object.getX() > object.getMotionPath().getEndX()) {
+                            object.setForwardMotion(false);
+                        }
+                    }
+                    if (dx < 0) {
+                        if (object.getY() < object.getMotionPath().getEndY()) {
+                            object.setForwardMotion(false);
+                        }
+                    }
+                } else {
+                    double dx = object.getMotionPath().getStartX() - object.getX();
+                    double dy = object.getMotionPath().getStartY() - object.getY();
+                    double dist = Math.sqrt(dx * dx + dy * dy);
+                    object.addX(100 * dtSeconds * dx / dist);
+                    object.addY(100 * dtSeconds * dy / dist);
+
+                    if (dx > 0) {
+                        if (object.getX() > object.getMotionPath().getStartX()) {
+                            object.setForwardMotion(true);
+                        }
+                    }
+                    if (dx < 0) {
+                        if (object.getY() < object.getMotionPath().getStartY()) {
+                            object.setForwardMotion(true);
+                        }
+                    }
+                }
+            }
+        }
+
         getLevelData().getObjects(Liquid.class)
                 .forEach(liquid -> liquid.setStateTime(totalSeconds));
     }

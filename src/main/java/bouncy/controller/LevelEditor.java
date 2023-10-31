@@ -4,7 +4,6 @@ import bouncy.AppProperties;
 import bouncy.Main;
 import bouncy.model.Categories;
 import bouncy.model.Category;
-import bouncy.model.GameObject;
 import bouncy.model.LevelData;
 import bouncy.ui.*;
 import javafx.fxml.FXML;
@@ -38,7 +37,6 @@ public class LevelEditor {
     @FXML
     private void initialize() {
         collidersCheckBox.selectedProperty().bindBidirectional(AppProperties.getCollidersProperty());
-        level.setGameObjectFactory(this::getSelectedGameObject);
 
         level.getLevelData().setName("New Level");
         levelNameField.setText(level.getLevelData().getName());
@@ -60,15 +58,6 @@ public class LevelEditor {
     public void loadLevelData(String fileName) {
         level.load(fileName);
         levelNameField.setText(level.getLevelData().getName());
-    }
-
-    private GameObject getSelectedGameObject() {
-        GameObjectToggleButton selectedToggle = (GameObjectToggleButton) toggleGroup.getSelectedToggle();
-        if (selectedToggle != null) {
-            return selectedToggle.getGameObject();
-        } else {
-            return null;
-        }
     }
 
     private void initGameObjectsList() {
@@ -106,6 +95,10 @@ public class LevelEditor {
                     setGraphic(null);
                 }
             }
+        });
+
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            level.getSelectedToggleProperty().set((GameObjectToggleButton) newValue);
         });
     }
 
