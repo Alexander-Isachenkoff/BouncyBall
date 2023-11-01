@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Player extends MovingGameObject {
+public class Player extends GameObject {
 
     private static final double JUMP_SPEED = -300;
     private static final double SIDE_ACC = 450;
@@ -29,7 +29,6 @@ public class Player extends MovingGameObject {
     @XmlTransient
     private boolean isDead = false;
 
-    @Override
     public void move(double seconds) {
         this.setVSpeed(this.getVSpeed() + GRAVITY * seconds);
 

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name = "block")
 @NoArgsConstructor
-public class Block extends GameObject {
+public class Block extends MovingGameObject {
 
     @Override
     public void affectPlayer(Player player) {

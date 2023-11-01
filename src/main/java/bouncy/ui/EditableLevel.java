@@ -3,6 +3,7 @@ package bouncy.ui;
 import bouncy.model.GameObject;
 import bouncy.model.MotionPath;
 import bouncy.model.MotionPoint;
+import bouncy.model.MovingGameObject;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.css.PseudoClass;
@@ -90,7 +91,7 @@ public class EditableLevel extends Level {
                     if (gameObject instanceof MotionPoint) {
                         MotionPoint motionPoint = (MotionPoint) gameObject;
                         addMotionPoint(getNode(motionPoint.getParent()), gameObjectNode, motionPoint);
-                        GameObject parent = motionPoint.getParent();
+                        MovingGameObject parent = motionPoint.getParent();
                         parent.setMotionPath(new MotionPath(parent.getX(), parent.getY(), x, y));
                     }
                 }
@@ -139,20 +140,27 @@ public class EditableLevel extends Level {
         GameObjectNode gameObjectNode = super.add(gameObject);
         gameObjectNode.setCursor(Cursor.HAND);
 
-        if (gameObject.getMotionPath() != null) {
-            MotionPoint motionPoint = new MotionPoint(gameObject);
-            motionPoint.setX(gameObject.getMotionPath().getEndX());
-            motionPoint.setY(gameObject.getMotionPath().getEndY());
-            motionPoint.setWidth(gridSize);
-            motionPoint.setHeight(gridSize);
-            GameObjectNode motionPointNode = add(motionPoint);
-            addMotionPoint(gameObjectNode, motionPointNode, motionPoint);
+        if (gameObject instanceof MovingGameObject) {
+            MovingGameObject movingGameObject = (MovingGameObject) gameObject;
+            if (movingGameObject.getMotionPath() != null) {
+                MotionPoint motionPoint = new MotionPoint(movingGameObject);
+                motionPoint.setX(movingGameObject.getMotionPath().getEndX());
+                motionPoint.setY(movingGameObject.getMotionPath().getEndY());
+                motionPoint.setWidth(gridSize);
+                motionPoint.setHeight(gridSize);
+                GameObjectNode motionPointNode = add(motionPoint);
+                addMotionPoint(gameObjectNode, motionPointNode, motionPoint);
+            }
         }
 
         gameObjectNode.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 levelSelectionModel.select(gameObjectNode);
-                setGameObjectToPlace(new MotionPoint(gameObject));
+                if (gameObject instanceof MovingGameObject) {
+                    setGameObjectToPlace(new MotionPoint(((MovingGameObject) gameObject)));
+                } else {
+                    setGameObjectToPlace(null);
+                }
             }
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (gameObject instanceof MotionPoint) {

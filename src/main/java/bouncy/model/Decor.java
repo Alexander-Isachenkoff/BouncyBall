@@ -1,4 +1,4 @@
 package bouncy.model;
 
-public class Decor extends GameObject {
+public class Decor extends MovingGameObject {
 }
