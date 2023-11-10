@@ -2,6 +2,7 @@ package bouncy.ui;
 
 import bouncy.model.*;
 import bouncy.util.Sets;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 
@@ -12,13 +13,12 @@ import java.util.Set;
 public abstract class PlayingLevel extends Level {
 
     private final Set<KeyCode> keysPressed = new HashSet<>();
-    private final int delay = Math.round(1000 / 120f);
     private final Set<KeyCode> leftKeys = Sets.of(KeyCode.A, KeyCode.LEFT);
     private final Set<KeyCode> rightKeys = Sets.of(KeyCode.D, KeyCode.RIGHT);
-    private Thread timer;
     private long lastUpdate;
     private double dtSeconds;
     private double totalSeconds;
+    private AnimationTimer timer;
 
     public PlayingLevel(String levelPath) {
         super(levelPath);
@@ -36,18 +36,12 @@ public abstract class PlayingLevel extends Level {
 
     public void start() {
         requestFocus();
-        lastUpdate = System.currentTimeMillis();
-        timer = new Thread(() -> {
-            while (true) {
-                update();
-                try {
-                    Thread.sleep(delay);
-                } catch (InterruptedException e) {
-                    return;
-                }
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                update(now);
             }
-        });
-        timer.setDaemon(true);
+        };
         timer.start();
     }
 
@@ -58,16 +52,20 @@ public abstract class PlayingLevel extends Level {
         start();
     }
 
-    public void stop() {
-        timer.interrupt();
+    void stop() {
+        timer.stop();
     }
 
-    private void update() {
+    private void update(long now) {
         Platform.runLater(this::requestFocus);
-        long dtMills = System.currentTimeMillis() - lastUpdate;
-        dtSeconds = dtMills / 1000.0;
+        if (lastUpdate == 0) {
+            lastUpdate = now;
+        }
+        long dt = now - lastUpdate;
+        dtSeconds = dt / 1e9;
+        System.out.println(dt / 1e6);
         totalSeconds += dtSeconds;
-        lastUpdate = System.currentTimeMillis();
+        lastUpdate = now;
         processBall();
 
         for (MovingGameObject object : getLevelData().getObjects(MovingGameObject.class)) {
