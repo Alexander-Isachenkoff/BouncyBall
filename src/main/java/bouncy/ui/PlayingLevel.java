@@ -3,7 +3,6 @@ package bouncy.ui;
 import bouncy.model.*;
 import bouncy.util.Sets;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 
 import java.util.Collection;
@@ -22,11 +21,15 @@ public abstract class PlayingLevel extends Level {
 
     public PlayingLevel(String levelPath) {
         super(levelPath);
-        setOnKeyPressed(event -> {
-            keysPressed.add(event.getCode());
-        });
-        setOnKeyReleased(event -> {
-            keysPressed.remove(event.getCode());
+        sceneProperty().addListener((observable, oldValue, scene) -> {
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    keysPressed.add(event.getCode());
+                });
+                scene.setOnKeyReleased(event -> {
+                    keysPressed.remove(event.getCode());
+                });
+            }
         });
     }
 
@@ -35,7 +38,6 @@ public abstract class PlayingLevel extends Level {
     }
 
     public void start() {
-        requestFocus();
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -57,13 +59,11 @@ public abstract class PlayingLevel extends Level {
     }
 
     private void update(long now) {
-        Platform.runLater(this::requestFocus);
         if (lastUpdate == 0) {
             lastUpdate = now;
         }
         long dt = now - lastUpdate;
         dtSeconds = dt / 1e9;
-        System.out.println(dt / 1e6);
         totalSeconds += dtSeconds;
         lastUpdate = now;
         processBall();
