@@ -8,7 +8,7 @@
       <VBox spacing="20.0">
          <children>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPlay" styleClass="big-button" stylesheets="@../style.css" text="Play" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUserLevels" styleClass="big-button" stylesheets="@../style.css" text="User Levels" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCustomLevels" styleClass="big-button" stylesheets="@../style.css" text="User Levels" />
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLevelEditor" styleClass="big-button" stylesheets="@../style.css" text="Level Editor" />
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExit" styleClass="big-button" stylesheets="@../style.css" text="Exit" />
          </children>

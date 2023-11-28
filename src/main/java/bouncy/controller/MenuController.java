@@ -28,7 +28,7 @@ public class MenuController {
     }
 
     @FXML
-    private void onUserLevels() {
+    private void onCustomLevels() {
         root.getScene().setRoot(new CustomLevels());
     }
 

@@ -1,6 +1,7 @@
 package bouncy;
 
 import bouncy.controller.LevelEditor;
+import bouncy.ui.CustomLevels;
 import bouncy.ui.ViewUtils;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -31,6 +32,10 @@ public class Main extends Application {
         stage.getScene().setRoot(ViewUtils.loadMenu());
     }
 
+    public static void toCustomLevels() {
+        stage.getScene().setRoot(new CustomLevels());
+    }
+
     @Override
     public void start(Stage stage) {
         Main.stage = stage;
@@ -38,6 +43,7 @@ public class Main extends Application {
         stage.setScene(new Scene(parent));
         stage.setWidth(1024);
         stage.setHeight(600);
+        stage.setTitle("Bouncy Ball");
         stage.show();
     }
 

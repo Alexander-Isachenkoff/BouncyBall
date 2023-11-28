@@ -32,7 +32,6 @@ public class Block extends MovingGameObject {
                     player.setRotationSpeed(-player.getRotationSpeed());
                     break;
             }
-            System.out.println(intersection.name());
         }
     }
 
