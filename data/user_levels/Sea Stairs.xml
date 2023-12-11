@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Sea Stairs">
+    <objects>
+        <liquid x="0.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="440.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="640.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="440.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="320.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="520.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="680.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="320.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="480.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="400.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="440.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="480.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="400.0" y="320.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="640.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="280.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="400.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="160.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="240.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="520.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="600.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="280.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="240.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <liquid x="240.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="200.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="400.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="80.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="200.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="600.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <player x="240.0" y="320.0" width="40.0" height="40.0" imagePath="images/balls/foot-ball.png"/>
+        <liquid x="360.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="80.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="600.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="640.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="360.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="360.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="400.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="560.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="560.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="0.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="120.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="400.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="680.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <star x="160.0" y="240.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <liquid x="320.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="160.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <liquid x="40.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="240.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="280.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="40.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="680.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="520.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="0.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="280.0" y="320.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <liquid x="480.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="280.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="320.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <liquid x="120.0" y="480.0" width="40.0" height="40.0" imagePath="images\liquid\liquidWater.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="160.0" y="280.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="40.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <block x="200.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <liquid x="80.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="120.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <liquid x="360.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="160.0" y="320.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="400.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="160.0" y="520.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassCenter.png"/>
+        <liquid x="560.0" y="440.0" width="40.0" height="40.0" imagePath="images/liquid/liquidWaterTop_mid.png">
+            <stateTime>0.0</stateTime>
+        </liquid>
+        <block x="200.0" y="280.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="400.0" y="280.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+    </objects>
+</Level>

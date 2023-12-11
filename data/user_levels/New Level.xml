@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="New Level">
+    <objects>
+        <block x="280.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <liquid x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLava.png"/>
+        <liquid x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLava.png"/>
+        <block x="240.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <block x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <liquid x="280.0" y="320.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLavaTop_mid.png"/>
+        <liquid x="200.0" y="320.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLavaTop_mid.png"/>
+        <block x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <block x="320.0" y="320.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoMid.png"/>
+        <block x="160.0" y="320.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoMid.png"/>
+        <player x="160.0" y="280.0" width="40.0" height="40.0" imagePath="images/balls/tennis-ball.png"/>
+        <block x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <liquid x="240.0" y="320.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLavaTop_mid.png"/>
+        <block x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+        <liquid x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\liquid\liquidLava.png"/>
+        <block x="320.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\chocoCenter.png"/>
+    </objects>
+</Level>

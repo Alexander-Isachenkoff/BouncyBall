@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Motion">
+    <objects>
+        <block x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="120.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="200.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png">
+            <motionPath startX="200.0" startY="640.0" endX="480.0" endY="640.0"/>
+        </block>
+        <spikes x="200.0" y="320.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png">
+            <motionPath startX="200.0" startY="320.0" endX="160.0" endY="320.0"/>
+        </spikes>
+        <star x="600.0" y="280.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png">
+            <motionPath startX="360.0" startY="360.0" endX="560.0" endY="360.0"/>
+        </block>
+        <block x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png">
+            <motionPath startX="320.0" startY="360.0" endX="520.0" endY="360.0"/>
+        </block>
+        <block x="160.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="600.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png">
+            <motionPath startX="200.0" startY="360.0" endX="160.0" endY="360.0"/>
+        </block>
+        <star x="160.0" y="600.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="240.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png">
+            <motionPath startX="240.0" startY="640.0" endX="520.0" endY="640.0"/>
+        </block>
+        <player x="240.0" y="320.0" width="40.0" height="40.0" imagePath="images/balls/basket-ball.png"/>
+        <block x="560.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <star x="600.0" y="600.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="600.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+    </objects>
+</Level>

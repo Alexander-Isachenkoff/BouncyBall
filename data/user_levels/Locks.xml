@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Locks">
+    <objects>
+        <key lockType="YELLOW" x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\keys\keyYellow.png"/>
+        <block x="280.0" y="280.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="320.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="280.0" y="240.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="400.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <lock lockType="YELLOW" x="280.0" y="320.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <block x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <lock lockType="BLUE" x="120.0" y="280.0" width="40.0" height="40.0" imagePath="images\locks\lock_blue.png"/>
+        <block x="280.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="360.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <block x="120.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <lock lockType="BLUE" x="120.0" y="360.0" width="40.0" height="40.0" imagePath="images\locks\lock_blue.png"/>
+        <key lockType="BLUE" x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\keys\keyBlue.png"/>
+        <star x="400.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <lock lockType="BLUE" x="120.0" y="320.0" width="40.0" height="40.0" imagePath="images\locks\lock_blue.png"/>
+        <lock lockType="YELLOW" x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <block x="80.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+        <star x="80.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <player x="160.0" y="320.0" width="40.0" height="40.0" imagePath="images/balls/volley-ball.png"/>
+        <block x="240.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png"/>
+    </objects>
+</Level>

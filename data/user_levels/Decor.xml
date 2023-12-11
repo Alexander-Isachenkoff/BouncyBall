@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Decor">
+    <objects>
+        <key x="80.0" y="400.0" width="40.0" height="40.0" imagePath="images\keys\keyYellow.png"/>
+        <key x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images\keys\keyGreen.png"/>
+        <lock x="80.0" y="440.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <key x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\keys\keyRed.png"/>
+        <key x="120.0" y="400.0" width="40.0" height="40.0" imagePath="images\keys\keyBlue.png"/>
+        <lock x="200.0" y="440.0" width="40.0" height="40.0" imagePath="images\locks\lock_red.png"/>
+        <lock x="120.0" y="440.0" width="40.0" height="40.0" imagePath="images\locks\lock_blue.png"/>
+        <lock x="160.0" y="440.0" width="40.0" height="40.0" imagePath="images\locks\lock_green.png"/>
+    </objects>
+</Level>

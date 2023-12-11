@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Hello, World!">
+    <objects>
+        <player x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images/balls/basket-ball.png"/>
+        <block x="280.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirt.png"/>
+        <block x="320.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirt.png"/>
+        <block x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirt.png"/>
+        <block x="240.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirt.png"/>
+        <star x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+    </objects>
+</Level>

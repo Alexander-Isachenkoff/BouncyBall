@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="4-4">
+    <objects>
+        <spikes x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <block x="240.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <spikes x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <block x="360.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="320.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="480.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtRight.png"/>
+        <block x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <star x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="400.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <spikes x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <player x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images/balls/volley-ball.png"/>
+        <block x="440.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="280.0" y="400.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <star x="480.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <spikes x="440.0" y="360.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <star x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <star x="400.0" y="360.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+    </objects>
+</Level>

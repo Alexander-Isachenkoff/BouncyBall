@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Level 25">
+    <objects>
+        <block x="440.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="560.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="520.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="400.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <star x="600.0" y="320.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="560.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="120.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="80.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="440.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="600.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassRight.png"/>
+        <block x="480.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <star x="600.0" y="320.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block x="520.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="40.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassLeft.png"/>
+        <block x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="600.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassRight.png"/>
+        <block x="40.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassLeft.png"/>
+        <block x="480.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="400.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="440.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="440.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="80.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <player x="40.0" y="280.0" width="40.0" height="40.0" imagePath="images/balls/basket-ball.png"/>
+        <block x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="120.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+        <block x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grassMid.png"/>
+    </objects>
+</Level>

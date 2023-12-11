@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Level 12">
+    <objects>
+        <block x="360.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="240.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="320.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <star x="160.0" y="320.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <spikes x="240.0" y="320.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <block x="280.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="200.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <block x="160.0" y="360.0" width="40.0" height="40.0" imagePath="images\blocks\dirt\dirtMid.png"/>
+        <player x="360.0" y="280.0" width="40.0" height="40.0" imagePath="images/balls/base-ball.png"/>
+    </objects>
+</Level>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Level name="Motion">
+    <objects>
+        <star moveSpeed="100" x="640.0" y="400.0" width="40.0" height="40.0" imagePath="images/other/star.png"/>
+        <block moveSpeed="100" x="240.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="160.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="360.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <lock lockType="YELLOW" moveSpeed="100" x="480.0" y="360.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <block moveSpeed="100" x="240.0" y="600.0" width="40.0" height="40.0" imagePath="images\box\box.png"/>
+        <block moveSpeed="100" x="440.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="640.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="520.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="600.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="80.0" y="640.0" width="40.0" height="40.0" imagePath="images\blocks\choco\choco.png">
+            <motionPath startX="80.0" startY="640.0" endX="80.0" endY="440.0"/>
+        </block>
+        <lock lockType="YELLOW" moveSpeed="100" x="480.0" y="400.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <spikes moveSpeed="100" x="200.0" y="400.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <block moveSpeed="100" x="200.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="160.0" y="600.0" width="40.0" height="40.0" imagePath="images\box\box.png"/>
+        <block moveSpeed="100" x="200.0" y="600.0" width="40.0" height="40.0" imagePath="images\box\box.png"/>
+        <block moveSpeed="100" x="560.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="320.0" y="480.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <player x="160.0" y="400.0" width="40.0" height="40.0" imagePath="images/balls/volley-ball.png"/>
+        <spikes moveSpeed="100" x="520.0" y="400.0" width="40.0" height="40.0" imagePath="images/spikes/spikesBottom.png"/>
+        <block moveSpeed="100" x="360.0" y="480.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <block moveSpeed="100" x="480.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+        <key lockType="YELLOW" moveSpeed="100" x="200.0" y="560.0" width="40.0" height="40.0" imagePath="images\keys\keyYellow.png"/>
+        <lock lockType="YELLOW" moveSpeed="100" x="480.0" y="320.0" width="40.0" height="40.0" imagePath="images\locks\lock_yellow.png"/>
+        <block moveSpeed="100" x="320.0" y="440.0" width="40.0" height="40.0" imagePath="images\blocks\grass\grass.png"/>
+    </objects>
+</Level>
